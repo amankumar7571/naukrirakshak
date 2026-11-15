@@ -1,0 +1,18 @@
+LINKEDIN POST DRAFT — NaukriRakshak (Catalyst Solo AI Hackathon)
+Status: DRAFT — fill in the repo link once the GitHub repo exists, then post.
+Note: I could not verify a Makers Need More LinkedIn company page from search. If "@Makers Need More" doesn't resolve when you post, check the WhatsApp group for the organisers' template / exact tag. Do not invent a handle.
+
+---
+
+Fake job offers are stealing ₹5,000–₹50,000 from Indian freshers every day. A WhatsApp message from "HR", an offer letter with no interview, a "refundable security deposit" — and the money is gone.
+
+I built NaukriRakshak to fight that. Paste any job message, posting or offer letter, and it tells you in seconds whether it's a scam — and shows you exactly why.
+
+What makes it different: it's a real trained model, not a chatbot wrapper. TF-IDF + logistic regression, trained on 117 labelled examples of real scam vs genuine fresher postings — 24/24 on held-out tests. The whole model runs in your browser: no server, no API key, nothing you paste ever leaves your phone. And every verdict comes with its evidence and an honest "uncertain" band for the grey cases, because a wrong "genuine" is worse than no answer at all.
+
+Try it here: https://sparkly-peony-a6f629.netlify.app
+Code: [ADD GITHUB REPO LINK — https://github.com/amankumar7571/naukrirakshak]
+
+Built solo for Catalyst — Solo AI Hackathon by @Makers Need More.
+
+#AI #MachineLearning #Hackathon #Catalyst #MakersNeedMore #JobScam #Freshers

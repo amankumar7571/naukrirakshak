@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>NaukriRakshak — Pitch Deck · Catalyst Solo AI Hackathon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef1f4; --surface:#ffffff; --surface2:#f7f9fa; --ink:#0e1a24; --ink2:#344054; --muted:#667085;
+    --line:#dde3e8; --green:#0a7a55; --green-dark:#075e41; --green-soft:#e6f4ee;
+    --red:#d92d20; --red-soft:#fef1f0; --amber:#b54708; --amber-soft:#fffaeb; --amber-fill:#f79009;
+    --navy:#0c2233; --navy2:#123247; --paper:#ffffff;
+    --shadow:0 24px 60px rgba(12,34,51,.16), 0 4px 16px rgba(12,34,51,.08);
+    --radius:20px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0a0f14; --surface:#131c24; --surface2:#182430; --ink:#f2f5f7; --ink2:#d0d5dd; --muted:#98a2b3;
+      --line:#26343f; --green:#2fbf8f; --green-dark:#7adbb8; --green-soft:#0f2e24;
+      --red:#ff6b5e; --red-soft:#331714; --amber:#fdb022; --amber-soft:#2e2105; --paper:#131c24;
+      --shadow:0 24px 60px rgba(0,0,0,.5), 0 4px 16px rgba(0,0,0,.4);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  button,[role="button"],a.btn{min-height:2.75rem}
+  h1,h2,h3,.display{font-family:"Bricolage Grotesque","Public Sans",sans-serif}
+  .mono{font-family:"JetBrains Mono",monospace}
+  a{color:var(--green)}
+  :focus-visible{outline:3px solid var(--amber-fill);outline-offset:2px;border-radius:6px}
+
+  /* ---------- Top bar ---------- */
+  .topbar{position:sticky;top:0;z-index:60;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar-in{max-width:1180px;margin:0 auto;padding:.55rem 1rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+  .brand .shield{width:34px;height:34px;flex:none}
+  .brand small{display:block;font-weight:600;color:var(--muted);font-size:.68rem;letter-spacing:.04em;text-transform:uppercase}
+  .topbar .spacer{flex:1}
+  .pill{font-size:.72rem;font-weight:700;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:.3rem .65rem;color:var(--ink2);white-space:nowrap}
+  .pill b{color:var(--red)}
+  .tbtn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;font-size:.82rem;border-radius:10px;padding:.45rem .8rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem}
+  .tbtn:hover{border-color:var(--green);color:var(--green)}
+  .tbtn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .tbtn.primary:hover{background:var(--green-dark);color:#fff}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:1rem 1rem 3rem}
+
+  /* ---------- Deck stage ---------- */
+  .deck-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin:.6rem 0 .8rem;flex-wrap:wrap}
+  .deck-head h2{margin:0;font-size:1.05rem;font-weight:800}
+  .deck-head p{margin:.15rem 0 0;color:var(--muted);font-size:.85rem}
+  .progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:.9rem}
+  .progress i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .35s ease}
+  .stage{position:relative;border-radius:var(--radius);box-shadow:var(--shadow);background:var(--surface);overflow:hidden}
+  .slide{display:none;min-height:560px;padding:2.4rem 2.6rem;flex-direction:column;background:var(--surface)}
+  .slide.active{display:flex;animation:slideIn .32s ease}
+  @keyframes slideIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.slide.active{animation:none}.progress i{transition:none}}
+  .slide-no{font-family:"JetBrains Mono",monospace;font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:.6rem}
+  .slide-no::after{content:"";flex:0 0 44px;height:2px;background:var(--green);border-radius:2px}
+  .slide h3{font-size:clamp(1.7rem,4.2vw,2.6rem);line-height:1.08;letter-spacing:-.02em;margin:.7rem 0 .6rem;font-weight:800}
+  .slide .lede{font-size:clamp(1rem,1.8vw,1.15rem);color:var(--ink2);line-height:1.55;max-width:62ch;margin:0}
+  .slide .foot{margin-top:auto;padding-top:1.2rem;font-size:.78rem;color:var(--muted);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px dashed var(--line)}
+  .controls{display:flex;align-items:center;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
+  .navbtn{appearance:none;border:none;background:var(--navy);color:#fff;font:inherit;font-weight:800;font-size:.9rem;border-radius:12px;padding:.6rem 1.1rem;cursor:pointer;min-width:7.5rem}
+  @media (prefers-color-scheme: dark){.navbtn{background:var(--green);color:#06281c}}
+  .navbtn:disabled{opacity:.35;cursor:default}
+  .counter{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.9rem}
+  .dots{display:flex;gap:.35rem;margin-left:auto;flex-wrap:wrap}
+  .dot{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font:inherit;font-size:.75rem;font-weight:700;cursor:pointer;color:var(--ink2);padding:0}
+  .dot.on{background:var(--green);border-color:var(--green);color:#fff}
+
+  /* overview grid */
+  .overview{display:none;gap:.8rem;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));margin-top:1rem}
+  .overview.show{display:grid}
+  .ov-card{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:.9rem;text-align:left;font:inherit;cursor:pointer;color:var(--ink)}
+  .ov-card:hover{border-color:var(--green)}
+  .ov-card b{display:block;font-size:.92rem;margin:.3rem 0 .2rem}
+  .ov-card span{font-size:.78rem;color:var(--muted);line-height:1.4;display:block}
+  .ov-card .n{font-family:"JetBrains Mono",monospace;font-size:.68rem;color:var(--green);font-weight:700}
+
+  /* ---------- Slide 1 : title ---------- */
+  .s-title{background:var(--navy);color:#eef4f7;padding:0;overflow:hidden}
+  .s-title .inner{padding:2.6rem;display:grid;grid-template-columns:1.25fr .9fr;gap:2rem;flex:1}
+  .s-title .slide-no{color:#8fb4c7}.s-title .slide-no::after{background:var(--amber-fill)}
+  .s-title h3{color:#fff;font-size:clamp(2.4rem,6vw,4rem);margin:.8rem 0 .4rem}
+  .s-title h3 .guard{color:#ffb224}
+  .s-title .tag{font-size:clamp(1.05rem,2.2vw,1.35rem);color:#cfe0ea;line-height:1.5;margin:0;max-width:34ch}
+  .s-title .tag b{color:#fff}
+  .byline{margin-top:1.6rem;display:flex;gap:.5rem;flex-wrap:wrap}
+  .byline span{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:.35rem .7rem;font-size:.78rem;font-weight:600;color:#dbe7ee}
+  .phone{width:min(290px,100%);margin:0 auto;background:#0a1a26;border:1px solid rgba(255,255,255,.14);border-radius:28px;padding:.8rem;box-shadow:0 20px 50px rgba(0,0,0,.35);align-self:center}
+  .phone .notch{width:90px;height:5px;border-radius:99px;background:rgba(255,255,255,.2);margin:.1rem auto .7rem}
+  .wa{background:#e7dfd3;border-radius:14px;padding:.7rem;color:#1c2b26}
+  @media (prefers-color-scheme: dark){.wa{background:#22312b;color:#e6efe9}}
+  .wa .who{font-size:.7rem;font-weight:800;color:#075e41}
+  @media (prefers-color-scheme: dark){.wa .who{color:#7adbb8}}
+  .wa p{font-size:.8rem;line-height:1.45;margin:.3rem 0 .5rem}
+  .wa mark{background:#ffd9d4;border-radius:3px;padding:0 2px;color:#7a1710}
+  @media (prefers-color-scheme: dark){.wa mark{background:#5a231d;color:#ffb4ab}}
+  .verdict-chip{display:flex;align-items:center;gap:.5rem;background:var(--red);color:#fff;font-weight:800;font-size:.85rem;border-radius:10px;padding:.55rem .7rem}
+  .verdict-chip small{font-weight:600;opacity:.9}
+  .s-title .foot{border-top-color:rgba(255,255,255,.15);color:#9db8c6;padding:1rem 2.6rem 1.4rem;margin-top:0}
+
+  /* generic slide building blocks */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.3rem}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.3rem}
+  .card{border:1px solid var(--line);background:var(--surface2);border-radius:16px;padding:1.1rem 1.15rem}
+  .card h4{margin:0 0 .4rem;font-size:1rem;font-weight:800}
+  .card p{margin:0;color:var(--ink2);font-size:.9rem;line-height:1.55}
+  .card .big{font-family:"Bricolage Grotesque",sans-serif;font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .card.red{border-top:5px solid var(--red)} .card.green{border-top:5px solid var(--green)} .card.amber{border-top:5px solid var(--amber-fill)}
+  .quote{border-left:4px solid var(--red);background:var(--red-soft);border-radius:0 14px 14px 0;padding:1rem 1.15rem;margin-top:1.3rem}
+  .quote p{margin:0;font-size:1rem;line-height:1.6;color:var(--ink)}
+  .quote p b{background:rgba(217,45,32,.16);padding:0 3px;border-radius:3px}
+  .quote small{display:block;margin-top:.5rem;color:var(--muted);font-weight:600}
+  ul.ticks{list-style:none;margin:1.1rem 0 0;padding:0;display:grid;gap:.6rem}
+  ul.ticks li{display:flex;gap:.6rem;align-items:flex-start;font-size:.98rem;line-height:1.5;color:var(--ink2)}
+  ul.ticks li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:6px;background:var(--green-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a7a55' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat}
+  ul.ticks li b{color:var(--ink)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1.4rem}
+  .step{border:1px solid var(--line);border-radius:16px;padding:1rem;background:var(--surface)}
+  .step .n{width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.85rem;margin-bottom:.55rem}
+  @media (prefers-color-scheme: dark){.step .n{background:var(--green);color:#06281c}}
+  .step h4{margin:0 0 .3rem;font-size:.95rem}.step p{margin:0;font-size:.84rem;color:var(--muted);line-height:1.5}
+  .arrow-row{display:flex;align-items:center;gap:.5rem;color:var(--muted);font-weight:800}
+
+  /* pipeline */
+  .pipe{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.7rem;align-items:stretch;margin-top:1.4rem}
+  .pipe .node{border-radius:16px;padding:1.05rem;border:1px solid var(--line);background:var(--surface2)}
+  .pipe .node h4{margin:0 0 .35rem;font-size:.98rem}
+  .pipe .node p{margin:0;font-size:.85rem;color:var(--ink2);line-height:1.5}
+  .pipe .node .tagchip{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:.2rem .55rem;margin-bottom:.5rem}
+  .pipe .arr{display:grid;place-items:center;font-size:1.3rem;color:var(--green);font-weight:800}
+  .chip-green{background:var(--green-soft);color:var(--green-dark)} .chip-amber{background:var(--amber-soft);color:var(--amber)} .chip-red{background:var(--red-soft);color:var(--red)}
+
+  /* demo slide */
+  .demo-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
+  .demo-tab{appearance:none;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;font-size:.85rem;border-radius:999px;padding:.5rem .95rem;cursor:pointer}
+  .demo-tab.on-scam{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .demo-tab.on-gen{border-color:var(--green);background:var(--green-soft);color:var(--green-dark)}
+  .demo-tab.on-unc{border-color:var(--amber-fill);background:var(--amber-soft);color:var(--amber)}
+  .demo-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1rem;margin-top:1rem;align-items:start}
+  .demo-msg{border:1px solid var(--line);border-radius:14px;background:var(--surface2);padding:1rem;font-size:.92rem;line-height:1.6;color:var(--ink2);min-height:120px}
+  .demo-msg mark{background:rgba(217,45,32,.2);color:inherit;border-radius:3px;padding:0 2px;font-weight:700}
+  .meter-box{border:1px solid var(--line);border-radius:14px;padding:1rem;background:var(--surface)}
+  .meter-num{font-family:"Bricolage Grotesque",sans-serif;font-size:3rem;font-weight:800;line-height:1}
+  .meter-track{height:12px;border-radius:99px;background:linear-gradient(90deg,#12b76a 0 39%,#f79009 40% 65%,#f04438 65% 100%);position:relative;margin:.7rem 0 .4rem;opacity:.28}
+  .meter-fill{position:absolute;inset:0 auto 0 0;border-radius:99px;background:var(--ink);width:0;transition:width .6s ease;opacity:.9;mix-blend-mode:normal}
+  .meter-scale{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);font-weight:700}
+  .verdict-line{font-weight:800;font-size:1.05rem;margin-top:.6rem}
+  .flag-list{list-style:none;margin:.7rem 0 0;padding:0;display:grid;gap:.45rem}
+  .flag-list li{font-size:.85rem;line-height:1.45;color:var(--ink2);display:flex;gap:.45rem}
+  .flag-list li::before{content:"⚑";color:var(--red);flex:none}
+  .saved-line{margin-top:.7rem;background:var(--green-soft);color:var(--green-dark);border-radius:10px;padding:.55rem .7rem;font-weight:800;font-size:.9rem;display:none}
+  .saved-line.show{display:block}
+  .meter-scale{flex-wrap:wrap;gap:.15rem .6rem}
+  .verdict-note{display:none;margin-top:.6rem;background:var(--green-soft);color:var(--green-dark);border-radius:10px;padding:.55rem .7rem;font-size:.82rem;line-height:1.5;font-weight:600}
+  .verdict-note.show{display:block}
+  .escalate{margin-top:.8rem;background:var(--red-soft);border:1px solid color-mix(in srgb, var(--red) 35%, transparent);border-radius:10px;padding:.6rem .75rem;font-size:.85rem;line-height:1.5;color:var(--ink)}
+  .escalate b{color:var(--red)}
+
+  /* metrics */
+  .metrics-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;margin-top:1.3rem}
+  .metric{border:1px solid var(--line);border-radius:16px;padding:1rem;text-align:center;background:var(--surface)}
+  .metric .v{font-family:"Bricolage Grotesque",sans-serif;font-size:2.1rem;font-weight:800;line-height:1}
+  .metric .l{font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.35rem}
+  .cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:4px;max-width:420px;margin-top:.4rem;font-size:.85rem}
+  .cm div{padding:.55rem .6rem;border-radius:8px;background:var(--surface2);border:1px solid var(--line);text-align:center;font-weight:700}
+  .cm .hit{background:var(--green-soft);border-color:transparent;color:var(--green-dark);font-size:1.05rem}
+  .cm .miss{background:var(--surface2);color:var(--muted)}
+  .cm .hd{background:transparent;border:none;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+  .caveat{margin-top:1.1rem;background:var(--amber-soft);border:1px solid color-mix(in srgb, var(--amber-fill) 45%, transparent);border-radius:14px;padding:.9rem 1.05rem;font-size:.92rem;line-height:1.55;color:var(--ink)}
+  .caveat b{color:var(--amber)}
+
+  /* roadmap */
+  .road{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:1.4rem;position:relative}
+  .road .phase{border:1px solid var(--line);border-radius:16px;padding:1rem;background:var(--surface)}
+  .road .phase .when{font-family:"JetBrains Mono",monospace;font-size:.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em}
+  .road .phase h4{margin:.4rem 0 .35rem;font-size:.98rem}
+  .road .phase p{margin:0;font-size:.85rem;color:var(--muted);line-height:1.5}
+
+  .s-thanks{background:var(--navy);color:#eef4f7}
+  .s-thanks h3{color:#fff}
+  .s-thanks .lede{color:#cfe0ea}
+  .s-thanks .foot{border-top-color:rgba(255,255,255,.15);color:#9db8c6}
+  .contact-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem}
+  .contact-row a,.contact-row span{border:1px solid rgba(255,255,255,.25);color:#fff;text-decoration:none;border-radius:12px;padding:.6rem .9rem;font-weight:700;font-size:.9rem;display:inline-flex;align-items:center}
+  .contact-row a:hover{border-color:#ffb224;color:#ffb224}
+  .closing{font-family:"Bricolage Grotesque",sans-serif;font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;color:#ffb224;margin-top:1.6rem;line-height:1.3;max-width:26ch}
+
+  /* ---------- Toolkit sections ---------- */
+  .toolkit{margin-top:2.6rem}
+  .toolkit>h2{font-size:1.5rem;letter-spacing:-.02em;margin:0 0 .3rem}
+  .toolkit>p{color:var(--muted);margin:0 0 1.2rem;font-size:.95rem}
+  .tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .tk{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.3rem}
+  .tk h3{margin:0 0 .3rem;font-size:1.12rem}
+  .tk .sub{color:var(--muted);font-size:.85rem;margin:0 0 .9rem}
+  .script-line{display:flex;gap:.8rem;padding:.65rem 0;border-top:1px dashed var(--line)}
+  .script-line:first-of-type{border-top:none}
+  .script-line .t{font-family:"JetBrains Mono",monospace;font-size:.75rem;font-weight:700;color:var(--green);flex:none;width:52px;padding-top:.15rem}
+  .script-line p{margin:0;font-size:.92rem;line-height:1.55;color:var(--ink2)}
+  .script-line p b{color:var(--ink)}
+  .copybtn{margin-top:1rem;appearance:none;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font:inherit;font-weight:700;font-size:.85rem;border-radius:10px;padding:.55rem .95rem;cursor:pointer}
+  .copybtn:hover{border-color:var(--green);color:var(--green)}
+  .copybtn.done{border-color:var(--green);color:var(--green)}
+  .qa{border-top:1px dashed var(--line);padding:.8rem 0}
+  .qa:first-of-type{border-top:none}
+  .qa b{display:block;font-size:.95rem;margin-bottom:.25rem}
+  .qa b::before{content:"Judge: ";color:var(--red)}
+  .qa p{margin:0;font-size:.9rem;line-height:1.55;color:var(--ink2)}
+  .qa p::before{content:"Answer: ";font-weight:800;color:var(--green)}
+  .checklist{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+  .checklist li{display:flex;gap:.65rem;align-items:flex-start;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:.7rem .85rem;font-size:.92rem;line-height:1.5;color:var(--ink2)}
+  .checklist li b{color:var(--ink)}
+  .checklist .box{flex:none;width:20px;height:20px;border:2px solid var(--green);border-radius:6px;margin-top:1px}
+  .timeline-v{display:grid;gap:0}
+  .tv-row{display:grid;grid-template-columns:74px 1fr;gap:.9rem;padding:.6rem 0;border-top:1px dashed var(--line)}
+  .tv-row:first-child{border-top:none}
+  .tv-row .t{font-family:"JetBrains Mono",monospace;font-size:.75rem;font-weight:700;color:var(--green);padding-top:.1rem}
+  .tv-row p{margin:0;font-size:.9rem;line-height:1.55;color:var(--ink2)} .tv-row p b{color:var(--ink)}
+  footer.page{margin-top:2.6rem;border-top:1px solid var(--line);padding-top:1.1rem;color:var(--muted);font-size:.85rem;line-height:1.6}
+  .kbd{font-family:"JetBrains Mono",monospace;font-size:.72rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:.05rem .35rem;background:var(--surface)}
+
+  @media (max-width:860px){
+    .slide{min-height:0;padding:1.5rem 1.2rem 1.7rem}
+    .s-title .inner{grid-template-columns:1fr;padding:1.6rem 1.2rem}
+    .grid2,.grid3,.tk-grid,.demo-grid{grid-template-columns:1fr}
+    .steps,.metrics-row,.road{grid-template-columns:1fr 1fr}
+    .pipe{grid-template-columns:1fr}
+    .pipe .arr{transform:rotate(90deg);padding:.1rem 0}
+    .navbtn{min-width:0;flex:1}
+    .dots{display:none}
+  }
+  @media print{
+    .topbar,.controls,.deck-head,.progress,.toolkit .copybtn{display:none!important}
+    body{background:#fff}
+    .stage{box-shadow:none;border-radius:0;overflow:visible}
+    .slide{display:flex!important;page-break-after:always;min-height:0;border-bottom:2px solid #ccc}
+    .overview{display:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#deck" aria-label="NaukriRakshak pitch deck">
+      <svg class="shield" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 3 7 9v13c0 11 7.2 18.9 17 23 9.8-4.1 17-12 17-23V9L24 3Z" fill="#0a7a55"/><path d="M24 7.5 11 12v10c0 8.9 5.6 15.4 13 19 7.4-3.6 13-10.1 13-19V12L24 7.5Z" fill="#0c2233"/><path d="m17 24.2 4.8 4.8L31.5 19" stroke="#ffb224" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>NaukriRakshak<small>Pitch deck · Catalyst 2026</small></span>
+    </a>
+    <span class="spacer"></span>
+    <span class="pill">Prize <b>₹15,000</b> + pre-placement interviews</span>
+    <span class="pill">3,151 registered · Solo</span>
+    <button class="tbtn" id="overviewBtn" type="button">▦ Overview</button>
+    <button class="tbtn primary" id="presentBtn" type="button">▶ Present</button>
+  </div>
+</header>
+
+<div class="wrap" id="deck">
+  <div class="deck-head">
+    <div>
+      <h2>The 10-slide pitch</h2>
+      <p>Use <span class="kbd">←</span> <span class="kbd">→</span> keys, swipe, or the buttons. Present mode goes full-screen for the finale (Sun 15 Nov, 6:00–7:30 PM).</p>
+    </div>
+    <span class="counter" id="counterTop">Slide 1 / 10</span>
+  </div>
+  <div class="progress" aria-hidden="true"><i id="progressBar" style="width:10%"></i></div>
+
+  <div class="stage" id="stage" aria-live="polite">
+
+    <!-- 1 TITLE -->
+    <section class="slide s-title active" data-title="Title">
+      <div class="inner">
+        <div>
+          <div class="slide-no">Slide 01 · Catalyst Solo AI Hackathon</div>
+          <h3>Naukri<span class="guard">Rakshak</span></h3>
+          <p class="tag">AI fake-job detector for freshers.<br><b>Paste a job message. Know in seconds if it is a scam — and why.</b></p>
+          <div class="byline">
+            <span>Aman Kumar</span><span>B.Tech CSE (AI &amp; ML)</span><span>KIET ’27</span><span>15 Nov 2026</span>
+          </div>
+        </div>
+        <div class="phone" aria-label="Example scam WhatsApp message being flagged">
+          <div class="notch"></div>
+          <div class="wa">
+            <div class="who">HR Anjali · WhatsApp</div>
+            <p>Your profile is shortlisted for Data Entry, salary ₹35,000/month. <mark>No interview needed.</mark> Pay <mark>₹1,999 refundable security deposit</mark> on GPay to confirm. <mark>Limited seats, hurry!</mark></p>
+            <div class="verdict-chip">🛡 Likely scam <small>· fee demand + urgency + no interview</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>One participant. One idea. One shield between a fresher and a fraud.</span><span>naukrirakshak · live demo in slide 6</span></div>
+    </section>
+
+    <!-- 2 PROBLEM -->
+    <section class="slide" data-title="The problem">
+      <div class="slide-no">Slide 02 · Problem</div>
+      <h3>Freshers are losing money to jobs that don’t exist</h3>
+      <p class="lede">Every day, Indian freshers lose <b>₹5,000–₹50,000</b> to fake job offers — “refundable security deposits”, WhatsApp HR messages, and offer letters issued with no interview at all.</p>
+      <div class="quote">
+        <p>“Congratulations! You are selected. Pay <b>₹2,500 refundable security deposit</b> to confirm your seat and get the offer letter <b>today</b>.”</p>
+        <small>A textbook scam pattern — fee first, urgency second, no real company anywhere.</small>
+      </div>
+      <div class="grid3">
+        <div class="card red"><div class="big">₹5k–50k</div><p style="margin-top:.4rem">Lost per victim to deposits, “registration fees” and processing charges that are never refunded.</p></div>
+        <div class="card red"><h4>It arrives on WhatsApp</h4><p>No official email, no careers page — just a personal chat, a UPI ID, and pressure to pay before you can think.</p></div>
+        <div class="card red"><h4>Nothing checks it</h4><p>Portals list jobs; nobody verifies the message already sitting in a fresher’s phone. That gap is the product.</p></div>
+      </div>
+      <div class="foot"><span>Problem: fraud reaches the fresher before any platform does.</span><span>02 / 10</span></div>
+    </section>
+
+    <!-- 3 WHO IT HURTS -->
+    <section class="slide" data-title="Who it hurts">
+      <div class="slide-no">Slide 03 · Who it hurts</div>
+      <h3>The people least able to verify are the ones targeted</h3>
+      <p class="lede">Scammers don’t target experienced engineers with networks. They target first-generation job seekers who have no one to ask, “does this look real?”</p>
+      <div class="grid3">
+        <div class="card amber"><div class="big">10M+</div><p style="margin-top:.4rem">Graduates enter the Indian job market every year — most hunting on phones, many on WhatsApp.</p></div>
+        <div class="card amber"><h4>First-generation seekers</h4><p>No family member has ever received a real offer letter — so a fake one looks exactly like success.</p></div>
+        <div class="card amber"><h4>Small-town students</h4><p>Far from campus placement cells and alumni networks, a polished PDF and a confident “HR” voice is all they get.</p></div>
+      </div>
+      <ul class="ticks">
+        <li><span><b>This is personal:</b> the builder has received these scam messages himself — consultancy spam and “HR” offers asking for money and documents upfront.</span></li>
+        <li><span><b>The cost isn’t only money:</b> Aadhaar copies, bank details and OTPs shared with fraudsters follow a fresher for years.</span></li>
+      </ul>
+      <div class="foot"><span>Audience: every fresher with a phone and a job alert.</span><span>03 / 10</span></div>
+    </section>
+
+    <!-- 4 SOLUTION -->
+    <section class="slide" data-title="The solution">
+      <div class="slide-no">Slide 04 · Solution</div>
+      <h3>Paste the message. Get a verdict — with receipts</h3>
+      <p class="lede">NaukriRakshak checks any job message, posting or offer letter in seconds and shows <b>exactly why</b> it is risky, in plain language a first-generation job seeker can act on.</p>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h4>Paste anything</h4><p>A WhatsApp HR message, an email, a portal listing, an offer letter.</p></div>
+        <div class="step"><div class="n">2</div><h4>Risk score 0–100%</h4><p>A trained classifier scores it instantly — green, amber or red.</p></div>
+        <div class="step"><div class="n">3</div><h4>Evidence, highlighted</h4><p>The exact suspicious phrases are marked in your text, each with its reason.</p></div>
+        <div class="step"><div class="n">4</div><h4>A clear next step</h4><p>“Likely scam”, “No scam signs found”, or — when unsure — 3 plain-language checks to run first.</p></div>
+      </div>
+      <ul class="ticks">
+        <li><span><b>Works fully offline</b> in the browser — no sign-in, no fee, no API key, no server. The demo cannot die on stage.</span></li>
+        <li><span><b>Shows uncertainty honestly:</b> amber means “we’re not sure — verify these 3 things”, never a fake-confident guess.</span></li>
+        <li><span><b>Green is worded carefully:</b> “No scam signs found” only means the message contains no known scam words — verify on the company’s official careers page before sharing any document.</span></li>
+      </ul>
+      <div class="foot"><span>Solution: a 10-second check before a fresher pays, shares, or trusts.</span><span>04 / 10</span></div>
+    </section>
+
+    <!-- 5 HOW THE AI WORKS -->
+    <section class="slide" data-title="How the AI works">
+      <div class="slide-no">Slide 05 · How the AI works</div>
+      <h3>Real machine learning — not a chatbot wrapper</h3>
+      <p class="lede">Two stages. The score comes from a classifier <b>trained for this exact task</b>; the explanation shows its evidence. No prompt is doing the judging.</p>
+      <div class="pipe">
+        <div class="node"><span class="tagchip chip-green">Stage 1 · Trained model</span><h4>TF-IDF + Logistic Regression</h4><p>scikit-learn model trained on 117 labelled scam / genuine examples (word 1–2 grams). The <b>exact exported weights</b> — intercept + the full 2,063-term vocabulary, every coefficient and idf value — run in the browser with exact TF-IDF scoring.</p></div>
+        <div class="arr" aria-hidden="true">→</div>
+        <div class="node"><span class="tagchip chip-amber">Stage 2 · Evidence</span><h4>Every flag, explained</h4><p>Deterministic phrase-flagging highlights fee demands, urgency, WhatsApp-only HR, free-mail domains — each with a plain-language reason.</p></div>
+        <div class="arr" aria-hidden="true">→</div>
+        <div class="node"><span class="tagchip chip-red">Verdict</span><h4>Score + reasons + action</h4><p>Risk band, highlighted text, money-at-risk amount, and a verification checklist when the model is uncertain.</p></div>
+      </div>
+      <ul class="ticks">
+        <li><span><b>Production explainer:</b> Gemini turns the flags into a fuller plain-language explanation in the deployed version.</span></li>
+        <li><span><b>Demo explainer:</b> an offline version ships with the prototype, so the finale demo never depends on an API quota.</span></li>
+        <li><span><b>Stack:</b> Python · scikit-learn · TF-IDF + logistic regression · Gemini (explanations) · runs client-side.</span></li>
+      </ul>
+      <div class="foot"><span>Judges penalise ChatGPT wrappers. This is a trained classifier with exported, inspectable weights.</span><span>05 / 10</span></div>
+    </section>
+
+    <!-- 6 LIVE DEMO FLOW -->
+    <section class="slide" data-title="Live demo flow">
+      <div class="slide-no">Slide 06 · Live demo — try it here</div>
+      <h3>Thirty seconds, three pastes, zero doubt</h3>
+      <p class="lede">This is the exact flow to run in the finale. Tap a sample — the meter, flags and money-saved line below mirror the working prototype.</p>
+      <div class="demo-tabs" role="group" aria-label="Demo samples">
+        <button class="demo-tab" type="button" data-demo="scam">1 · Scam WhatsApp message</button>
+        <button class="demo-tab" type="button" data-demo="genuine">2 · Genuine posting</button>
+        <button class="demo-tab" type="button" data-demo="uncertain">3 · Uncertain consultancy</button>
+      </div>
+      <div class="demo-grid">
+        <div class="demo-msg" id="demoMsg">Tap a sample above to run the demo flow.</div>
+        <div class="meter-box">
+          <div style="display:flex;align-items:baseline;gap:.6rem"><span class="meter-num" id="demoScore">—</span><span style="color:var(--muted);font-weight:700">risk</span></div>
+          <div class="meter-track"><div class="meter-fill" id="demoFill"></div></div>
+          <div class="meter-scale"><span>0% No scam signs found</span><span>40% Verify</span><span>65%+ Likely scam</span></div>
+          <div class="verdict-line" id="demoVerdict">Waiting for a sample…</div>
+          <div class="verdict-note" id="demoNote">This only means the message contains no known scam words — verify on the company’s official careers page before sharing any document.</div>
+          <ul class="flag-list" id="demoFlags"></ul>
+          <div class="saved-line" id="demoSaved"></div>
+          <div class="escalate">Already paid or shared documents? Call <b>1930</b> and report at <b>cybercrime.gov.in</b> immediately, then call your bank.</div>
+        </div>
+      </div>
+      <div class="foot"><span>Scores are computed live in this page by the exact TF-IDF scorer over the exported full-vocabulary model — the same computation the prototype runs, matching scikit-learn within 0.01.</span><span>06 / 10</span></div>
+    </section>
+
+    <!-- 7 MEASURED RESULTS -->
+    <section class="slide" data-title="Measured results">
+      <div class="slide-no">Slide 07 · Measured results</div>
+      <h3>24 out of 24 — reported honestly</h3>
+      <p class="lede">Held-out test, stratified 80/20 split, never seen in training: 13 genuine and 11 scam examples.</p>
+      <div class="metrics-row">
+        <div class="metric"><div class="v">24/24</div><div class="l">Correct</div></div>
+        <div class="metric"><div class="v">1.000</div><div class="l">Accuracy</div></div>
+        <div class="metric"><div class="v">1.000</div><div class="l">Precision (scam)</div></div>
+        <div class="metric"><div class="v">1.000</div><div class="l">Recall (scam)</div></div>
+        <div class="metric"><div class="v">1.000</div><div class="l">F1 (scam)</div></div>
+      </div>
+      <div class="grid2" style="align-items:start">
+        <div>
+          <h4 style="margin:.2rem 0 .5rem;font-size:.95rem">Confusion matrix — rows: actual, columns: predicted</h4>
+          <div class="cm" role="img" aria-label="Confusion matrix: 13 genuine correctly identified, 11 scam correctly identified, zero errors">
+            <div class="hd"></div><div class="hd">Genuine</div><div class="hd">Scam</div>
+            <div class="hd" style="text-align:right">Genuine</div><div class="hit">13</div><div class="miss">0</div>
+            <div class="hd" style="text-align:right">Scam</div><div class="miss">0</div><div class="hit">11</div>
+          </div>
+        </div>
+        <div class="card">
+          <h4>Honest about what isn’t built yet</h4>
+          <p><b>Money-saved counter:</b> when a likely-scam check names an amount, the prototype shows “You just avoided losing ₹N”. <b>Report button:</b> today it stores reports on the device only — the retraining loop needs a backend and is not built yet.</p>
+        </div>
+      </div>
+      <div class="caveat"><b>Honest caveat, on the slide on purpose:</b> 24 test examples is a small set of representative examples. Real-world accuracy will be lower — which is exactly why the product shows an amber “verify first” band instead of pretending certainty.<br><b>Next: test on real messages I received</b> — no real-world accuracy number goes on this slide until that test has actually been run.</div>
+      <div class="escalate">Already paid or shared documents? Call <b>1930</b> and report at <b>cybercrime.gov.in</b> immediately, then call your bank.</div>
+      <div class="foot"><span>117 labelled examples total · 93 train / 24 held-out · scikit-learn 1.8 · full training script ships in the repo.</span><span>07 / 10</span></div>
+    </section>
+
+    <!-- 8 WHY IT WINS -->
+    <section class="slide" data-title="Why it wins">
+      <div class="slide-no">Slide 08 · Why it wins</div>
+      <h3>Built on the axes judges actually score</h3>
+      <div class="grid2">
+        <div class="card green"><h4>Distinctive — almost nobody builds this</h4><p>Fraud detection <i>for job seekers</i>. In a room of chatbots and study planners, “paste it before you pay” is remembered.</p></div>
+        <div class="card green"><h4>Real ML, not a wrapper</h4><p>A trained TF-IDF + logistic-regression classifier with exported weights running in the browser. The AI is the product.</p></div>
+        <div class="card green"><h4>Measurable, and honest about it</h4><p>Held-out metrics on the slide <i>with</i> the small-test-set caveat. Credibility is a scoring axis too.</p></div>
+        <div class="card green"><h4>Demoable in 30 seconds</h4><p>One paste → red verdict → highlighted reasons → money saved. Works offline; nothing can break live.</p></div>
+      </div>
+      <ul class="ticks">
+        <li><span><b>A true story behind it:</b> the builder received these scam messages himself. Problem, builder and user are the same person — judges feel that.</span></li>
+        <li><span><b>Impact with a number:</b> every red verdict on a ₹1,999 deposit message is ₹1,999 a fresher still has.</span></li>
+      </ul>
+      <div class="foot"><span>Innovation · technical depth · impact · UX · presentation — covered, in that order.</span><span>08 / 10</span></div>
+    </section>
+
+    <!-- 9 ROADMAP -->
+    <section class="slide" data-title="Roadmap">
+      <div class="slide-no">Slide 09 · Roadmap</div>
+      <h3>From hackathon prototype to every fresher’s phone</h3>
+      <p class="lede">Ordered by what helps freshers soonest — and honest about what each step actually needs before it can ship.</p>
+      <div class="road">
+        <div class="phase"><span class="when">Next · Language</span><h4>Hinglish verdict toggle</h4><p>The verdict line, flag reasons and the 3 checks in Roman-script Hinglish — the language the target users actually think in. A full Hindi interface follows.</p></div>
+        <div class="phase"><span class="when">Then · Data</span><h4>Real-message dataset</h4><p>Train and test on real scam messages the builder himself received — not only self-written examples — and publish the honest real-world score next to the 24/24.</p></div>
+        <div class="phase"><span class="when">Then · Verify</span><h4>Careers-page verification</h4><p>Checks point to the company’s official careers page and its published phone number. No MCA or LinkedIn API exists to verify against — so we don’t claim one.</p></div>
+        <div class="phase"><span class="when">Later · Reach</span><h4>WhatsApp bot + extension</h4><p>A forward-to-check WhatsApp bot needs a server and WhatsApp Business API approval — a future build, not a weekend item. A browser extension checks portal listings in place.</p></div>
+      </div>
+      <ul class="ticks">
+        <li><span><b>Honest status:</b> the Report button stores reports on the device only. The human-in-the-loop retraining loop needs a backend and is not built yet.</span></li>
+        <li><span><b>Fallback-ready:</b> if the 9 AM challenge reveal imposes a constraint this concept can’t meet, the backup concept (SarkariSahayak — a government-scheme eligibility matcher with cited answers) is scoped and ready.</span></li>
+      </ul>
+      <div class="foot"><span>Roadmap: language → real data → verification → reach.</span><span>09 / 10</span></div>
+    </section>
+
+    <!-- 10 THANK YOU -->
+    <section class="slide s-thanks" data-title="Thank you">
+      <div class="slide-no" style="color:#8fb4c7">Slide 10 · Thank you</div>
+      <h3>Don’t guess.<br>Check first.</h3>
+      <p class="lede">NaukriRakshak — a trained AI that stands between Indian freshers and the fake offers in their inbox. Live demo, full training code and this deck are ready to open right now.</p>
+      <div class="contact-row">
+        <span>Aman Kumar</span>
+        <a href="mailto:amankumarverna@gmail.com">amankumarverna@gmail.com</a>
+        <a href="https://github.com/amankumar7571" target="_blank" rel="noopener">github.com/amankumar7571</a>
+        <span>B.Tech CSE (AI &amp; ML), KIET ’27</span>
+      </div>
+      <p class="closing">“We do not guess — we protect.”</p>
+      <div class="foot"><span>Catalyst Solo AI Hackathon · Makers Need More (MnM) · 15 Nov 2026</span><span>10 / 10</span></div>
+    </section>
+  </div>
+
+  <div class="controls">
+    <button class="navbtn" id="prevBtn" type="button">← Previous</button>
+    <span class="counter" id="counterBottom">1 / 10</span>
+    <button class="navbtn" id="nextBtn" type="button">Next →</button>
+    <div class="dots" id="dots" role="group" aria-label="Go to slide"></div>
+  </div>
+
+  <div class="overview" id="overview" aria-label="All slides overview"></div>
+
+  <!-- ============ SPEAKER TOOLKIT ============ -->
+  <div class="toolkit" id="toolkit">
+    <h2>Speaker toolkit — nothing left loose</h2>
+    <p>Everything around the deck for tomorrow: the exact 30-second script, the 2-minute video plan, answers to the four hardest judge questions, and the submission checklist.</p>
+    <div class="tk-grid">
+
+      <div class="tk">
+        <h3>30-second demo script</h3>
+        <p class="sub">Say it word for word. Timings match the clicks in slide 6.</p>
+        <div class="script-line"><span class="t">0–5s</span><p>“Every day, thousands of Indian freshers lose <b>₹5,000 to ₹50,000</b> to security-deposit job scams. This is NaukriRakshak.”</p></div>
+        <div class="script-line"><span class="t">5–15s</span><p><b>Click the scam sample.</b> “I paste this ‘urgent hiring’ WhatsApp message. The classifier flags it — <b>high risk, in under a second, with no server</b>.”</p></div>
+        <div class="script-line"><span class="t">15–25s</span><p>“It shows me exactly why: <b>a fee demand, no interview, and urgent tone</b>. And it tells me I just avoided losing <b>₹1,999</b>.”</p></div>
+        <div class="script-line"><span class="t">25–30s</span><p><b>Click the genuine sample.</b> “A real posting scores low. <b>24 out of 24 right</b> on our held-out test set. We do not guess — we protect.”</p></div>
+        <button class="copybtn" id="copyScript" type="button">Copy the full script</button>
+      </div>
+
+      <div class="tk">
+        <h3>2-minute demo video — shot list</h3>
+        <p class="sub">Screen recording + voiceover. No face needed. Record the prototype, not this deck.</p>
+        <div class="timeline-v">
+          <div class="tv-row"><span class="t">0:00–0:15</span><p><b>Problem.</b> One real-pattern scam message on screen; state the ₹5,000–₹50,000 loss range.</p></div>
+          <div class="tv-row"><span class="t">0:15–0:45</span><p><b>Scam demo.</b> Paste the scam sample → red verdict → highlighted reasons → “avoided losing ₹1,999”.</p></div>
+          <div class="tv-row"><span class="t">0:45–1:15</span><p><b>Balance.</b> Genuine sample scores green; uncertain case shows amber + the 3 verification checks.</p></div>
+          <div class="tv-row"><span class="t">1:15–1:45</span><p><b>How the AI works.</b> Two stages, trained classifier, 24/24 held-out result with the honest caveat.</p></div>
+          <div class="tv-row"><span class="t">1:45–2:00</span><p><b>Close.</b> Who it helps + the line: “We do not guess — we protect.”</p></div>
+        </div>
+      </div>
+
+      <div class="tk">
+        <h3>Judge questions — rehearsed answers</h3>
+        <p class="sub">The four attacks this project will get, and the answers already built into the product.</p>
+        <div class="qa"><b>“Isn’t this just a ChatGPT wrapper?”</b><p>No — the verdict comes from a logistic-regression classifier trained on labelled scam/genuine examples. Its exported weights run in the browser; you can inspect every coefficient. Gemini only explains, it never judges.</p></div>
+        <div class="qa"><b>“24/24 — isn’t that test set tiny?”</b><p>Yes, and the deck says so on the results slide. It’s a representative held-out set, real-world accuracy will be lower — that’s why uncertain cases get an amber verification checklist instead of a confident verdict.</p></div>
+        <div class="qa"><b>“Scammers will just change their wording — data drift?”</b><p>That’s what the Report button is for: reported messages arrive with user labels, feeding human-in-the-loop retraining. The roadmap’s first item is exactly this data flywheel.</p></div>
+        <div class="qa"><b>“What if the demo network dies?”</b><p>It can’t — scoring and explanations run fully offline in the browser. No API key, no server, no quota in the demo path.</p></div>
+      </div>
+
+      <div class="tk">
+        <h3>Submission checklist — Sun 15 Nov</h3>
+        <p class="sub">Submission window: 4:30–5:00 PM. Finale: 6:00–7:30 PM.</p>
+        <ul class="checklist">
+          <li><span class="box" aria-hidden="true"></span><span><b>9:00 AM — check the challenge reveal</b> (Telegram: catalyst_mnm / WhatsApp community) for any imposed constraint before finalising.</span></li>
+          <li><span class="box" aria-hidden="true"></span><span><b>Working prototype link</b> — open it once on your phone, offline, and run all three samples.</span></li>
+          <li><span class="box" aria-hidden="true"></span><span><b>GitHub repo</b> — training script (train.py), exported model + metrics, and a README with the honest 24/24 caveat.</span></li>
+          <li><span class="box" aria-hidden="true"></span><span><b>2-minute demo video</b> — recorded from the shot list on the left; voiceover only is fine.</span></li>
+          <li><span class="box" aria-hidden="true"></span><span><b>This deck</b> — rehearse once in Present mode (full-screen) so the finale run is muscle memory.</span></li>
+          <li><span class="box" aria-hidden="true"></span><span><b>Travel plan</b> — build window (9:30 AM–4:30 PM) overlaps your trip back to college; submit from wherever you are before 5:00 PM.</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="page">
+    Built by Aman Kumar, B.Tech CSE (AI &amp; ML), KIET ’27 — for Catalyst Solo AI Hackathon, 15 Nov 2026.<br>
+    All metrics on this page are the measured held-out results from the project’s training run (metrics: 117 examples, 24 held-out). Scores in the slide-6 demo are computed live by the exact TF-IDF scorer over the exported full-vocabulary model.
+  </footer>
+</div>
+
+<script>
+/* NaukriRakshak exported model — full vocabulary (2,063 terms) from train.py.
+   Exact sklearn TF-IDF scoring, no approximation:
+   clean -> count unigrams + bigrams -> tf = 1 + ln(count) when count > 0 ->
+   value = tf * idf -> L2-normalise over ALL vocabulary terms ->
+   score = intercept + sum(value * coefficient) -> risk = sigmoid(score). */
+var MODEL = {"intercept":-0.1235,"terms":["10","10 am","10 to","100","100 percent","1000","1000 for","1000 registration","10000","10000 consultancy","11","11 am","1100","1100 as","1200","1200 for","1500","1500 daily","1500 for","1500 registration","15000","15000 for","15000 per","15000 plus","15000 subah","16000","16000 morning","1800","1800 as","18000","18000 full","18000 plus","199","199 registration","20","20 security","200","200 delivery","2000","2000 for","2000 kamao","2000 per","2000 security","2000 to","20000","20000 esi","20000 office","20000 per","20000 plus","2025","2025 2026","2026","2026 batch","2026 graduates","2200","2200 for","22000","22000 food","22000 per","22000 plus","24000","24000 night","24000 per","2500","2500 for","2500 processing","25000","25000 hybrid","25000 no","25000 per","25000 plus","25000 to","26000","26000 per","26000 plus","2800","2800 for","28000","28000 food","28000 no","28000 per","28000 weekly","299","299 pay","30","30 wpm","3000","3000 for","3000 per","30000","30000 60000","30000 mahina","30000 salary","32000","32000 send","3500","3500 for","35000","35000 direct","35000 no","35000 salary","3800","3800 for","38000","38000 plus","4000","4000 as","4000 per","40000","40000 mahina","42000","42000 send","4500","4500 for","45000","45000 per","45000 salary","48000","48000 please","499","499 as","499 only","499 pay","500","500 for","500 freshers","50000","50000 monthly","50000 salary","60","60 percent","60000","60000 direct","60000 please","700","700 registration","750","750 charge","750 for","800","800 for","80000","80000 salary","900","900 for","98xxxxxxxx","98xxxxxxxx for","98xxxxxxxx now","98xxxxxxxx or","999","999 for","999 joining","999 registration","aadhaar","aadhaar and","aadhaar aur","aadhaar card","aaj","aaj hi","aap","aap select","aayein","aayein resume","accommodation","accommodation extra","accommodation for","account","account details","accountant","accountant entry","accountant mumbai","accountant whatsapp","accounting","accounting firm","activation","activation fee","admit","admit card","ads","ads 3000","ads basics","after","after interview","after joining","after month","after months","agreement","agreement papers","allowance","allowance aadhaar","allowance and","allowance bring","allowance extra","am","am hiring","am hr","am please","am to","amazon","amazon customer","amazon warehouse","amount","amount is","amount refundable","amount will","an","an insurance","analyst","analyst bengaluru","analyst entry","analyst fresher","analyst gurugram","analyst trainee","analytics","analytics meta","and","and accommodation","and admit","and agreement","and automation","and background","and bank","and conducted","and document","and documentation","and dress","and driving","and english","and evening","and get","and girls","and github","and gst","and id","and incentives","and interview","and keep","and medical","and no","and passport","and pay","and pf","and portfolio","and problem","and rs","and share","and start","and stay","and testing","and training","and two","and uniform","android","android developer","any","any stage","any stream","apis","apis apply","apis years","applicant","applicant you","apply","apply at","apply by","apply in","apply on","apply through","apply via","aptitude","aptitude technical","aptitude test","are","are consultancy","are hiring","are required","are selected","are shortlisted","articleship","articleship completed","as","as customer","as joining","as per","as refundable","as software","assessment","assessment followed","assigned","assigned on","assignment","assignment and","assignment based","assignment followed","assignment round","assistant","assistant whatsapp","associate","associate fresher","associate life","associate noida","associate saas","associate software","associate warehouse","associate work","associates","associates bhiwandi","at","at 11","at any","at our","at the","audit","audit associate","aur","aur driving","aur screenshot","autocad","autocad basics","automation","automation testing","back","back office","background","background check","background verification","bagh","bagh office","banane","banane ke","bank","bank account","bank back","bank careers","bank details","bank job","bank relationship","based","based on","based selection","basic","basic excel","basics","basics ctc","basics git","basics salary","basics sql","basics years","batch","batch 60","be","be refunded","be tech","been","been selected","been shortlisted","before","before joining","before the","before training","bengaluru","bengaluru hybrid","bengaluru manual","bengaluru sql","bharna","bharna hoga","bharne","bharne ka","bhejo","bhiwandi","bhiwandi graduate","bhiwandi immediate","bhopal","bhopal graduate","bike","bike kit","booking","booking refundable","boot","boot basics","boutique","boutique accounting","boy","boy chahiye","boys","boys and","boys needed","bpo","bpo share","bps","bps role","bring","bring aadhaar","bring resume","bug","bug reporting","business","business analyst","but","but freshers","by","by code","by copy","by email","by interview","by interviews","by our","by replying","by reviewing","by technical","by the","by two","by upi","by watching","cafe","cafe in","call","call centre","call offer","call or","call you","can","can apply","can generate","candidate","candidate you","candidate your","candidates","candidates apply","captcha","captcha filling","card","card and","card contact","care","care work","careers","careers page","careers portal","carry","carry photos","case","case study","case writing","caution","caution money","cd","cd concepts","centre","centre indore","centre night","certificate","certificate to","chahiye","chahiye delhi","chahiye patna","chahiye whatsapp","chain","chain analyst","charge","charge lagega","charged","charged at","charges","charges for","charges refundable","check","chennai","chennai core","chennai gnm","ci","ci cd","civil","civil site","civil willing","cleared","cleared the","clerk","clerk job","client","client kindly","clinic","clinic in","coaching","coaching institute","coaching sanstha","code","code review","coding","coding test","coimbatore","coimbatore pharm","college","college students","com","com articleship","com tally","com with","communication","communication mba","communication salary","company","company careers","company hiring","company interview","company portal","company salary","company website","company you","completed","completed preferred","concepts","concepts tech","conducted","conducted online","confirm","confirm interview","confirm your","congratulations","congratulations you","consultancy","consultancy fee","consultancy we","contact","contact hr","contact on","content","content planning","content writer","content writing","conversion","conversion after","copy","copy paste","core","core java","courier","courier charges","crm","crm tools","cse","cse 2025","css","css apply","ctc","ctc conversion","ctc lpa","cum","cum assistant","customer","customer care","customer success","customer support","cv","cv is","daily","daily from","daily no","dashboarding","dashboarding years","data","data analyst","data entry","data visualisation","date","day","day guaranteed","day no","day shift","days","days guaranteed","dear","dear applicant","dear candidate","delhi","delhi content","delhi full","delhi ncr","delhi salary","delivery","delivery boy","delivery boys","delivery executive","delivery executives","dental","dental clinic","deposit","deposit bharna","deposit rs","deposit walk","designer","designer fresher","designer remote","designer share","details","details and","details on","developer","developer fresher","developer indore","developer intern","developer send","development","development and","devops","devops engineer","diagnostic","diagnostic centre","direct","direct joining","direct offer","discuss","discuss joining","discussion","dmlt","dmlt sc","document","document verification","documentation","documents","documents and","documents ready","dress","dress before","driving","driving licence","drop","drop your","dsa","dsa and","duties","duties as","earn","earn 1500","earn 25000","earn 50000","earn by","earn money","earn rs","earning","earning immediately","ek","ek receptionist","electrical","electrical autocad","electrical engineer","email","email it","email no","email with","employee","employee id","engineer","engineer fresher","engineer hyderabad","engineer trainee","english","english crm","english salary","english speaking","english years","entry","entry level","entry operator","entry work","esi","esi and","estate","estate office","evening","evening job","evening shifts","event","event management","exam","exam registration","excel","excel python","excel salary","excel sql","excel stakeholder","excel stipend","excellent","excellent written","except","except rs","executive","executive delhi","executive jaipur","executive job","executive noida","executive please","executive role","executives","executives in","experience","experience nahi","experience needed","experience pay","experience portfolio","experience preferred","experience requirements","experience salary","extra","extra experience","extra laptop","fastapi","fastapi postgresql","fee","fee 100","fee and","fee at","fee for","fee is","fee jama","fee on","fee rs","fee to","field","field role","figma","figma portfolio","figma proficiency","filling","filling job","firm","firm careers","firm in","first","first salary","flipkart","flipkart delivery","followed","followed by","food","food and","for","for amazon","for an","for background","for bank","for bike","for call","for college","for content","for delivery","for document","for event","for exam","for flipkart","for freshers","for hdfc","for headset","for hotel","for hr","for id","for interview","for joining","for laptop","for medical","for months","for offer","for online","for outstation","for plagiarism","for police","for railway","for registration","for role","for site","for students","for tcs","for telecaller","for the","for tomorrow","for training","for uniform","for verification","for walk","for warehouse","for wipro","form","form bharne","form filling","formalities","formalities and","free","free accommodation","free and","free send","fresher","fresher bengaluru","fresher chennai","fresher gurugram","fresher kochi","fresher kolkata","fresher mumbai","fresher nagpur","fresher pune","fresher remote","freshers","freshers can","freshers for","freshers no","freshers salary","freshers welcome","freshers with","from","from candidates","from home","from office","from reputed","from tomorrow","frontend","frontend developer","fuel","fuel allowance","full","full stack","full time","gate","gaye","gaye hain","generate","generate your","generation","generation and","get","get joining","get login","get venue","get work","ghar","ghar se","girls","girls for","git","git ci","git ctc","git stipend","github","github link","give","give you","gmail","gnm","gnm sc","good","good communication","good english","gpay","gpay and","graduate","graduate engineer","graduate good","graduate in","graduate willing","graduate with","graduates","graduates ctc","graduates skills","graphic","graphic designer","gst","gst knowledge","guaranteed","guaranteed joining","guaranteed pay","guards","guards urgently","gurugram","gurugram excel","gurugram full","gurugram walk","hain","hain 50000","hamari","hamari coaching","has","has been","have","have been","hdfc","hdfc bank","headset","headset and","hello","hello am","hi","hi am","hi candidate","hi join","hi this","hindi","hindi and","hiring","hiring 500","hiring for","hiring freshers","hiring manager","hiring react","hiring receptionist","hiring store","hiring telecaller","hiring work","ho","ho gaye","hoga","hoga phir","home","home 30000","home assignment","home by","home earn","home for","home full","home job","home package","home pay","home salary","hospital","hospital chennai","hospital coimbatore","hospital hr","hotel","hotel management","hours","hours daily","hr","hr executive","hr office","hr on","hr riya","hr round","hr will","hr your","html","html css","hub","hub office","hurry","hybrid","hybrid kotlin","hybrid tech","hybrid work","hyderabad","hyderabad freshers","hyderabad sc","hyderabad sql","id","id banane","id before","id card","id password","id proof","if","if not","illustrator","illustrator figma","immediate","immediate joining","immediately","in","in any","in days","in delhi","in first","in gurugram","in interview","in jaipur","in kochi","in lucknow","in mnc","in nagpur","in patna","in person","in pune","in reputed","in shifts","in surat","in with","incentives","incentives apply","incentives freshers","incentives pay","incentives training","incentives walk","included","indore","indore dmlt","indore hybrid","institute","institute in","insurance","insurance company","interest","interest by","intern","intern remote","internshala","interview","interview and","interview at","interview contact","interview direct","interview for","interview hr","interview is","interview ke","interview needed","interview on","interview rounds","interview salary","interview slot","interview timing","interview tomorrow","interview with","interviews","investment","investment except","investment needed","involves","involves java","is","is charged","is free","is no","is priya","is refundable","is scheduled","is selected","is shortlisted","it","it salary","it startup","jaipur","jaipur field","jaipur needs","jaldi","jaldi karein","jama","jama karein","java","java developer","java development","java spring","javascript","javascript html","jira","jira ctc","job","job 4000","job 45000","job earn","job for","job in","job pay","job roz","job salary","job with","join","join karein","join next","joining","joining after","joining amount","joining date","joining fee","joining for","joining formalities","joining free","joining ke","joining letter","joining pay","joining without","junior","junior accountant","junior data","ka","ka kaam","kaam","kaam 30000","kaam 40000","kamao","kamao joining","karein","karein 999","karo","karo phonepe","karol","karol bagh","ke","ke liye","keep","keep your","kindly","kindly confirm","kit","kit and","knowledge","knowledge salary","ko","ko ek","kochi","kochi hiring","kochi mern","koi","koi experience","kolkata","kolkata com","kotlin","kotlin mvvm","lab","lab experience","lab technician","lagega","lagega aaj","laptop","laptop courier","laptop provided","layein","lekar","lekar walk","letter","letter and","letter by","letter generation","letter milega","letter send","level","level bhopal","level lucknow","level mumbai","licence","licence lekar","licence mandatory","life","life sciences","limited","limited seats","link","link on","linkedin","linkedin or","linux","linux basics","liye","liye 499","liye 750","liye aayein","liye office","local","local coaching","login","login id","lpa","lpa apply","lpa aptitude","lpa assignment","lpa case","lpa for","lpa no","lpa online","lpa plus","lpa portfolio","lpa selection","lpa take","lpa there","lpa three","lpa written","lucknow","lucknow com","lucknow hiring","mahina","mahina id","mahina koi","management","management job","management trainee","manager","manager drop","manager entry","manager you","mandatory","mandatory salary","manual","manual and","manual tester","mba","mba or","media","media executive","medical","medical before","medical test","meetings","meetings tasks","mern","mern stack","meta","meta ads","milega","milega jaldi","mlt","mlt salary","mnc","mnc company","mnc for","mnc in","mnc our","monday","monday to","money","money by","money to","month","month apply","month day","month from","month interview","month morning","month of","month office","month only","month plus","month shift","month site","month skills","month work","monthly","monthly no","months","months based","months then","months with","morning","morning and","mumbai","mumbai com","mumbai figma","mumbai years","mvvm","mvvm rest","nagpur","nagpur civil","nagpur hiring","nahi","nahi chahiye","name","name and","ncr","ncr walk","need","need 20","need boys","needed","needed from","needed joining","needed salary","needed send","needed whatsapp","needs","needs graphic","needs junior","next","next monday","next round","night","night shift","no","no charges","no deposit","no experience","no fee","no interview","no investment","no registration","no skills","no target","noida","noida graduate","noida linux","noida office","noida work","not","not required","not selected","now","now limited","now on","nurse","nurse private","nursing","nursing salary","of","of hiring","of published","of recruitment","of work","offer","offer letter","offer valid","office","office 10","office aayein","office bring","office day","office in","office patna","office role","office rotational","office salary","office timings","on","on 98xxxxxxxx","on email","on gmail","on gpay","on linkedin","on our","on performance","on phonepe","on the","on video","on whatsapp","on your","online","online apply","online assessment","online coding","online form","online survey","online teaching","online typing","only","only hours","only hurry","only offer","only whatsapp","opening","opening for","operations","operations associate","operator","operator delhi","or","or email","or placement","or tech","or the","or whatsapp","otp","otp and","our","our careers","our client","our hr","our office","outstation","outstation candidates","overtime","overtime apply","package","package lpa","packing","packing job","page","papers","par","par aur","par sampark","part","part time","passport","passport photo","password","password today","paste","paste work","patna","patna hindi","patna hiring","patna salary","pay","pay 1000","pay 999","pay by","pay karo","pay now","pay rs","pehle","pehle 2000","per","per day","per month","per roster","percent","percent placement","percent throughout","performance","performance apply","performance stipend","person","person at","petrol","petrol allowance","pf","pf included","pharm","pharm with","pharmacist","pharmacist hospital","phir","phir offer","phone","phone 2000","phonepe","phonepe and","phonepe par","photo","photo on","photos","photos and","photoshop","photoshop illustrator","placement","placement apply","placement guaranteed","plagiarism","plagiarism software","planning","planning analytics","please","please carry","please deposit","please pay","please share","plus","plus fuel","plus incentives","plus overtime","plus petrol","plus travel","pm","pm monday","pm salary","police","police verification","portal","portal no","portfolio","portfolio are","portfolio of","portfolio on","portfolio preferred","portfolio required","postgresql","postgresql git","ppo","ppo based","preferred","preferred apply","preferred but","preferred salary","press","press in","printing","printing press","private","private hospital","priya","priya hr","problem","problem solving","proceed","process","process online","process the","processing","processing fee","product","product analyst","products","products on","proficiency","proficiency and","profile","profile has","profile is","proof","proof verification","provided","provided by","published","published work","pune","pune be","pune hiring","pune test","python","python basics","python dashboarding","python developer","python sql","qa","qa engineer","railway","railway clerk","react","react developer","react javascript","ready","ready for","real","real estate","receive","receive your","receptionist","receptionist chahiye","receptionist contact","receptionist cum","recruitment","recruitment apply","refundable","refundable after","refundable caution","refundable if","refundable in","refundable security","refunded","refunded in","registration","registration and","registration charges","registration fee","registration salary","relationship","relationship manager","remote","remote excellent","remote fastapi","remote full","remote months","remote photoshop","replying","replying on","reporting","reporting jira","reputed","reputed company","reputed mnc","required","required ctc","required pay","required salary","required send","requirement","requirement 200","requirement for","requirements","requirements sql","research","research associate","rest","rest apis","resume","resume and","resume is","resume on","resume saath","resume salary","resume to","review","review discussion","reviewing","reviewing products","riya","riya from","role","role deposit","role in","role involves","role pay","role salary","role two","role typing","roster","rotational","rotational shifts","round","round followed","round hr","round please","rounds","rounds aptitude","roz","roz 2000","rs","rs 1000","rs 10000","rs 1100","rs 1200","rs 1500","rs 15000","rs 1800","rs 18000","rs 199","rs 2000","rs 20000","rs 2200","rs 22000","rs 24000","rs 2500","rs 25000","rs 26000","rs 2800","rs 28000","rs 299","rs 3000","rs 3500","rs 3800","rs 4000","rs 4500","rs 499","rs 500","rs 700","rs 750","rs 800","rs 900","rs 999","saas","saas remote","saath","saath layein","salary","salary 15000","salary 16000","salary 18000","salary 20000","salary 22000","salary 24000","salary 25000","salary 26000","salary 28000","salary 30000","salary 32000","salary 35000","salary 38000","salary 42000","salary 48000","salary 60000","salary lpa","salary no","salary pehle","salary rs","salary share","salary typing","sales","sales executive","sampark","sampark karein","sanstha","sanstha ko","saturday","sc","sc mlt","sc nursing","sc with","scheduled","scheduled for","scheduled tomorrow","sciences","sciences hyderabad","screenshot","screenshot bhejo","screenshot on","screenshot to","se","se kaam","se shaam","seats","security","security before","security deposit","security guards","select","select ho","selected","selected as","selected for","selected in","selection","selection process","selenium","selenium basics","send","send aadhaar","send rs","send your","shaam","shaam interview","share","share screenshot","share your","shift","shift allowance","shift duties","shift salary","shifts","shifts graduate","shifts salary","shortlisted","shortlisted by","shortlisted for","shortlisted pay","site","site engineer","site in","site visits","sites","sites salary","skills","skills python","skills react","skills required","skills sql","slot","slot and","slot booking","small","small it","so","so we","social","social media","software","software activation","software and","software engineer","solving","solving ctc","speaking","speaking salary","speed","speed 30","speed not","spring","spring boot","sql","sql ctc","sql data","sql excel","sql python","sql rest","stack","stack developer","stack git","stage","stage of","stakeholder","stakeholder communication","start","start earning","start work","startup","startup in","stay","stay free","stipend","stipend 15000","stipend rs","stipend to","store","store manager","stream","stream salary","strong","strong dsa","strong written","students","students 20000","students 35000","study","study and","study round","subah","subah se","success","success associate","supply","supply chain","support","support associate","support executive","surat","surat needs","survey","survey job","take","take home","tally","tally and","tally salary","target","target pay","tasks","tasks assigned","tcs","tcs bps","teaching","teaching job","tech","tech 2026","tech cse","tech preferred","technical","technical discussion","technical hr","technical interview","technical round","technician","technician diagnostic","telecaller","telecaller call","telecaller role","telecaller work","test","test and","test case","test followed","test technical","tester","tester fresher","testing","testing selenium","testing written","the","the amount","the bank","the careers","the company","the firm","the hiring","the hospital","the hub","the interview","the karol","the next","the noida","the office","the verification","the warehouse","then","then ctc","there","there is","this","this is","three","three rounds","through","through internshala","through the","throughout","throughout role","time","time evening","time job","time office","time salary","time strong","time training","time years","timing","timing salary","timings","timings 10","to","to 45000","to 98xxxxxxxx","to confirm","to ctc","to discuss","to get","to join","to pm","to proceed","to receive","to saturday","to sites","to travel","to work","today","today only","tomorrow","tomorrow at","tomorrow for","tomorrow to","tools","tools years","trainee","trainee bengaluru","trainee hyderabad","trainee job","trainee noida","trainee pune","trainee vadodara","training","training certificate","training is","training kit","training or","training provided","training refundable","travel","travel allowance","travel to","two","two interview","two interviews","two wheeler","typing","typing job","typing speed","ui","ui ux","uniform","uniform and","uniform charges","upi","upi and","urgent","urgent hiring","urgent opening","urgent requirement","urgently","urgently for","ux","ux designer","vadodara","vadodara electrical","valid","valid today","venue","venue details","verification","verification and","verification charges","verification process","verification salary","verification to","via","via company","via linkedin","via the","video","video call","video meetings","visits","visits required","visualisation","visualisation ctc","walk","walk in","warehouse","warehouse associates","warehouse bhiwandi","warehouse gate","warehouse job","warehouse packing","watching","watching ads","we","we are","we can","we need","we will","website","weekly","weekly video","welcome","welcome training","whatsapp","whatsapp 98xxxxxxxx","whatsapp and","whatsapp for","whatsapp hr","whatsapp only","whatsapp par","whatsapp pay","whatsapp salary","whatsapp so","whatsapp to","whatsapp your","wheeler","wheeler and","will","will be","will call","will give","willing","willing to","wipro","wipro bpo","with","with 80000","with good","with lab","with ppo","with registration","with resume","with strong","with tally","with the","without","without interview","won","won work","work","work from","work in","work interview","work link","work preferred","work registration","wpm","wpm basic","writer","writer remote","writer work","writing","writing bug","writing job","written","written english","written test","years","years ctc","years experience","years salary","years skills","you","you are","you cleared","you have","you job","you tomorrow","you won","your","your aadhaar","your bank","your cv","your documents","your employee","your interest","your interview","your name","your offer","your otp","your phone","your portfolio","your profile","your resume"],"coef":[-0.1319,-0.0916,-0.0539,0.0659,0.0659,0.1423,0.0766,0.0787,0.0659,0.0659,0.067,0.067,0.0768,0.0768,0.08,0.08,0.1825,0.0701,0.0839,0.059,-0.2207,-0.0548,-0.1075,-0.059,-0.0542,-0.065,-0.065,0.0735,0.0735,-0.1191,-0.0647,-0.0653,0.075,0.075,-0.0532,-0.0532,0.0728,0.0728,0.2766,0.0727,0.0789,0.0668,0.0767,0.0626,-0.123,-0.0532,-0.0539,0.009,-0.0616,-0.0453,-0.0453,-0.1238,-0.0484,-0.0881,0.057,0.057,-0.1902,-0.0569,-0.1091,-0.0585,-0.1041,-0.0613,-0.0523,0.1321,0.0714,0.0727,-0.0622,-0.0569,-0.0564,0.0127,-0.0566,0.0721,-0.1031,-0.0662,-0.0463,0.0622,0.0622,-0.0765,0.08,-0.0557,-0.0538,-0.0647,0.0701,0.0701,-0.0497,-0.0497,0.125,0.067,0.0694,0.2002,0.0787,0.0781,0.0768,0.0766,0.0766,0.1218,0.1218,0.1821,0.0728,0.0679,0.0717,0.0614,0.0614,0.0839,0.0839,0.1197,0.0648,0.0658,0.0788,0.0788,0.0727,0.0727,0.0646,0.0646,0.1868,0.1315,0.0744,0.0622,0.0622,0.2293,0.0676,0.0668,0.1359,0.1335,0.067,0.0787,0.143,0.0794,0.0767,-0.0484,-0.0484,0.1315,0.0787,0.0648,0.0717,0.0717,0.1404,0.0788,0.0744,0.0658,0.0658,0.0655,0.0655,0.0728,0.0728,-0.035,-0.059,0.0721,-0.0539,0.1889,0.0629,0.0794,0.0781,0.0216,-0.0463,-0.0566,0.1187,0.0788,0.0788,0.0767,0.0767,-0.1016,-0.0542,-0.1032,-0.0569,-0.0557,0.0679,0.0679,-0.1406,-0.0537,-0.0564,-0.0539,-0.0539,-0.0539,0.0768,0.0768,0.0646,0.0646,0.0066,0.0694,-0.0622,0.0286,-0.0585,0.067,0.0794,-0.0526,0.0744,0.0744,-0.1739,-0.0566,-0.0502,-0.0463,-0.0613,0.0702,0.0648,0.059,0.067,-0.0916,0.1324,0.0766,0.0679,0.1743,0.067,0.0794,0.057,-0.0616,-0.0616,-0.2016,-0.0552,-0.0504,-0.0579,-0.0424,-0.0548,-0.0622,-0.0622,0.2555,-0.0569,0.0646,0.0744,-0.0547,0.0622,0.0679,-0.0616,0.0078,0.0668,0.057,-0.0884,-0.0653,-0.1193,0.1193,0.0658,-0.0569,-0.0537,0.0309,-0.0502,-0.1038,0.0659,0.0614,-0.0583,0.0616,0.1742,-0.0532,-0.0531,-0.052,0.128,0.1177,0.13,0.08,-0.0484,0.1356,-0.056,0.1352,-0.0539,-0.0539,-0.1233,-0.0932,-0.0422,-0.0908,-0.0453,-0.0539,0.0614,0.0614,-0.4762,-0.0557,-0.0995,-0.0585,-0.2026,-0.1367,-0.1295,-0.1015,-0.0547,-0.056,0.3347,0.0659,0.0727,-0.0531,0.2375,0.1132,-0.0558,-0.0558,0.2083,0.0675,0.0676,-0.0694,0.1268,0.0768,-0.0509,-0.0509,-0.0647,-0.0647,-0.1876,-0.0554,-0.066,-0.0562,-0.0539,-0.065,-0.065,-0.2657,-0.0558,-0.053,-0.0422,-0.0554,-0.052,-0.0523,-0.0613,-0.0585,-0.0585,-0.2576,0.067,-0.0932,-0.0569,-0.2267,-0.0558,-0.0558,0.0205,-0.0566,0.0789,-0.0662,-0.0662,-0.0547,-0.0547,0.0727,0.0727,0.1146,0.0622,0.0629,-0.0497,-0.0497,0.0788,0.0788,0.1396,0.0679,0.0727,-0.052,0.0655,0.0626,-0.052,-0.145,-0.0946,-0.066,-0.0497,-0.0497,-0.2436,-0.0424,-0.0509,-0.0662,-0.0521,-0.1072,-0.0484,-0.0484,0.0079,0.057,-0.0484,0.1716,0.1231,0.0659,0.1985,0.1084,0.0616,0.0648,-0.133,-0.0453,-0.0547,-0.0552,0.0767,0.0767,0.0788,0.0788,0.0789,-0.1016,-0.0523,-0.0585,-0.052,-0.052,0.057,0.057,0.0727,0.0727,-0.0521,-0.0521,-0.0539,-0.0539,-0.0566,-0.0566,0.127,0.0658,0.0728,0.0629,0.0629,0.067,0.067,-0.0811,-0.0463,-0.0422,-0.056,-0.056,-0.0504,-0.0504,-0.0569,-0.0569,-0.0528,-0.0562,0.0701,-0.0782,-0.053,-0.0509,0.0659,0.0659,0.0668,-0.0539,-0.0613,-0.0949,0.0694,0.0694,-0.0569,-0.0569,0.0246,0.0839,-0.0613,-0.059,0.0668,0.0043,-0.0569,0.0616,0.168,0.0675,0.1177,-0.1104,-0.0557,0.0676,0.0676,0.264,0.1748,0.0646,0.0766,0.0766,-0.23,-0.1264,-0.1394,0.067,0.067,-0.1449,-0.1036,-0.056,0.0735,0.0735,-0.0509,-0.0509,0.0171,-0.0652,0.0839,0.0839,0.0839,-0.028,-0.0566,-0.0542,0.0781,-0.0579,-0.0579,0.0788,0.0788,-0.0564,-0.0564,0.1732,-0.0548,0.067,0.0622,-0.0988,-0.0521,-0.0557,-0.0509,-0.0509,-0.0912,-0.0538,-0.0538,0.0735,0.0735,0.0646,0.0646,0.0659,0.0659,-0.065,-0.065,-0.1108,-0.0667,-0.0542,-0.0562,-0.0562,-0.0955,-0.0955,-0.0694,-0.0694,0.075,0.075,-0.1422,-0.0558,-0.0564,-0.0537,-0.0939,-0.0504,-0.052,-0.1603,-0.0875,0.0787,-0.0613,-0.0523,-0.0616,-0.0979,0.059,-0.0558,-0.0558,-0.0509,-0.0509,-0.0616,-0.0616,0.1683,0.0626,0.0659,0.2174,0.2174,0.1116,0.0659,0.0659,0.0657,0.0787,-0.0019,-0.0914,-0.0622,-0.1117,0.0714,-0.0526,-0.0526,0.0701,0.0701,-0.0521,-0.0521,0.0655,0.0655,-0.0554,-0.0554,-0.0453,-0.0453,-0.0506,-0.0506,-0.4367,-0.0526,-0.4159,-0.065,-0.065,-0.0542,0.0766,-0.0554,-0.0765,0.067,0.067,0.1303,0.0701,0.0721,-0.0552,-0.0552,-0.099,-0.089,0.0248,-0.0579,0.0614,0.0635,0.0668,0.1239,-0.1099,0.0659,0.0659,0.1669,0.0614,0.1223,-0.1742,-0.0622,-0.0497,-0.0463,-0.0566,0.0218,-0.0566,0.0728,0.057,-0.0463,-0.065,-0.065,0.1271,0.0767,0.1268,-0.0583,-0.1575,-0.0531,-0.066,-0.0647,0.1679,0.0655,0.0679,-0.239,-0.1379,-0.0539,-0.0506,-0.0569,-0.0484,-0.0484,-0.0509,-0.0509,-0.0652,-0.0652,0.1922,0.1388,0.0727,0.0668,0.0668,-0.1008,-0.0652,-0.0652,0.0651,0.0651,0.0668,0.127,0.0727,0.0659,0.057,0.057,-0.1312,-0.1312,-0.0569,-0.0569,-0.052,-0.052,-0.0694,-0.0694,0.3155,0.0701,0.0676,0.0794,0.0694,0.0668,0.0721,0.0701,0.0701,-0.0542,-0.0542,-0.112,-0.0662,-0.0662,-0.1595,-0.0539,-0.0647,-0.0538,0.0616,0.0616,-0.2652,-0.0908,-0.052,-0.1786,-0.1915,-0.0554,-0.0583,-0.0653,-0.0572,-0.0998,-0.1338,-0.0497,0.0768,-0.0532,-0.0532,-0.059,-0.059,-0.0474,0.075,-0.1193,0.0658,0.0658,0.0646,0.0646,-0.1974,-0.0424,-0.0497,-0.0579,-0.0504,-0.0548,-0.0554,-0.0554,0.0794,0.0794,0.0119,-0.0622,-0.0502,0.057,-0.0583,0.0675,0.0622,-0.0463,-0.0463,0.0524,0.0781,0.1297,0.0658,-0.0572,-0.0569,-0.0424,-0.053,-0.1084,-0.0569,-0.0613,-0.0562,-0.0562,0.3185,0.0659,0.0694,-0.0453,-0.0557,-0.0564,0.0781,0.1207,0.1769,0.0768,-0.0502,-0.0502,-0.1091,-0.066,-0.0531,0.1301,0.1301,-0.1005,-0.0558,-0.0539,0.1224,0.1224,0.057,0.057,-0.2355,-0.2355,0.0211,0.0211,0.7843,0.1324,-0.0616,0.0629,0.0727,0.057,0.0839,0.075,0.0714,-0.0463,0.0675,0.0658,0.0646,0.057,0.0727,0.0626,0.0766,0.0614,0.0622,0.0744,0.0055,-0.0557,0.0655,0.08,-0.0548,0.1184,0.0648,-0.0557,0.0714,0.0728,0.0646,0.0658,0.0668,-0.0532,0.0717,0.067,0.0735,0.1179,0.067,0.0266,0.0614,0.0659,-0.059,0.0197,0.0629,0.1404,0.0788,0.0744,0.0668,0.0668,-0.032,-0.0557,-0.0616,0.08,-0.3226,-0.0453,-0.0521,-0.0579,-0.0526,-0.0558,-0.0531,-0.0538,-0.056,-0.0562,0.037,-0.0569,0.0727,0.0727,0.0787,-0.0653,-0.052,0.2076,-0.0647,0.2428,-0.0985,0.059,0.0717,-0.0506,-0.0506,-0.0463,-0.0463,-0.2457,-0.0526,-0.2155,-0.0585,0.0767,0.0767,0.0616,0.0616,0.067,0.067,0.2157,0.059,0.0676,0.0626,0.0768,0.0781,0.0781,0.0658,0.0658,-0.1368,-0.0509,-0.0562,-0.0526,-0.0569,-0.0569,0.0659,0.0659,0.0727,-0.0557,-0.0557,-0.1011,-0.052,-0.0583,0.059,0.059,-0.1958,-0.0484,-0.0583,-0.0422,-0.0523,-0.052,-0.0881,-0.0509,-0.0453,-0.1197,-0.1197,-0.0537,-0.0537,0.1635,0.0668,0.0659,-0.0532,-0.0532,-0.1316,-0.0579,-0.0424,-0.0532,0.0767,0.0767,-0.0542,-0.0542,0.0659,0.0659,0.1231,0.1231,0.0626,0.0626,0.0766,0.0766,0.0648,0.0648,0.2135,0.059,0.0626,0.0788,0.0629,-0.0653,-0.0653,0.0275,0.0787,0.147,0.0727,0.0108,-0.0569,-0.1207,-0.0569,-0.059,0.0721,0.0767,0.0767,0.0767,0.0767,0.202,0.0768,-0.0562,0.0701,0.0721,-0.0616,-0.0647,0.0655,0.0727,0.1274,0.014,-0.15,-0.0557,-0.0694,-0.0557,0.0614,0.0614,0.0721,0.0721,0.1213,0.0622,-0.0557,0.1382,0.059,-0.0955,0.0668,0.0629,-0.0506,-0.0506,-0.0463,-0.0463,0.0668,-0.1337,-0.0539,-0.0453,-0.0569,-0.137,-0.052,-0.053,-0.0548,0.2211,0.0788,0.0616,0.1349,0.0676,-0.0298,0.0727,0.0727,-0.066,-0.066,0.0197,0.0197,0.0701,-0.312,-0.0422,0.0659,-0.0463,0.1224,-0.0532,-0.2341,-0.0539,-0.0569,-0.059,0.1174,-0.065,-0.0667,-0.0585,-0.0569,0.0668,-0.0523,-0.0647,-0.0502,-0.1761,-0.052,-0.0653,0.0839,-0.0616,-0.0847,-0.0532,-0.1091,-0.0652,-0.0539,-0.0667,-0.0667,-0.0616,-0.0616,0.0659,0.0659,-0.0506,-0.0506,-0.0506,-0.1787,-0.0585,-0.1638,0.0787,0.0727,0.0735,-0.052,0.1187,-0.1016,0.0679,-0.0613,-0.1766,-0.059,0.1239,-0.0667,-0.0463,-0.102,-0.0972,0.0134,0.0794,-0.0647,-0.0484,-0.0484,0.1663,-0.0564,-0.0616,-0.0583,0.0629,0.067,0.1187,0.1198,0.067,-0.1015,-0.0539,-0.0569,-0.0954,-0.0502,-0.0539,0.0767,0.0767,0.0781,0.0781,-0.1252,-0.0521,-0.0484,-0.0521,-0.0506,-0.0506,-0.056,-0.056,0.642,0.0658,0.1336,0.1347,0.1344,0.0659,0.1991,0.0789,0.1823,0.0655,0.1491,0.0788,0.0839,0.4516,-0.0585,0.125,0.0614,0.1747,0.08,0.0668,-0.0557,0.0789,0.059,0.0728,0.0787,-0.1309,-0.1011,-0.0424,0.0788,0.0788,0.1438,0.0781,0.0788,0.0789,0.0789,0.2466,0.0781,0.0789,0.0789,-0.0497,-0.0497,0.038,0.038,0.0659,0.0659,0.0659,0.0659,0.1177,0.057,-0.0537,-0.0537,-0.0542,-0.0542,-0.1003,-0.0569,-0.0526,0.0781,0.0781,-0.0558,-0.0558,-0.0539,-0.0539,-0.1083,-0.053,-0.0652,0.0788,0.0788,0.0038,0.0655,-0.0613,-0.0542,-0.0566,-0.0566,0.2498,0.0622,0.0111,0.067,0.0767,0.0727,-0.1338,-0.052,-0.0537,-0.0504,-0.1312,-0.0566,-0.0502,-0.053,-0.053,0.0721,0.0721,0.0182,-0.0569,-0.087,-0.0424,-0.0509,-0.0509,0.038,0.0789,0.0788,-0.0566,-0.0542,-0.0667,-0.0667,0.0676,0.0676,-0.5455,-0.1296,-0.056,-0.1501,-0.1036,0.0727,-0.0548,-0.0944,-0.1238,-0.0622,-0.052,-0.0562,-0.0583,-0.0547,-0.053,-0.1033,-0.0537,-0.059,0.1438,0.0788,0.0781,0.1165,0.0658,0.0614,-0.0788,-0.0569,-0.052,0.0648,-0.0502,-0.0502,-0.1015,-0.0547,-0.056,-0.0504,-0.0504,-0.0622,-0.0622,0.1295,0.0614,0.08,-0.0647,-0.0647,-0.0526,-0.0526,-0.0622,-0.0622,0.0767,0.0767,-0.0652,-0.0652,0.222,0.0787,0.0622,0.0659,0.0668,0.0276,-0.0537,0.1286,0.0668,0.0735,-0.0948,-0.0538,-0.0667,0.0676,-0.0497,-0.0652,0.0794,-0.0537,0.1348,-0.0523,-0.0694,-0.0662,-0.0506,0.0714,0.0794,0.0794,-0.1354,-0.0526,-0.0548,-0.0506,-0.1193,-0.1193,-0.1371,-0.0564,-0.0531,-0.0504,-0.0539,-0.0539,-0.1089,-0.0538,-0.065,0.0781,0.0781,0.075,0.075,-0.0463,-0.0463,0.0115,-0.0532,0.0658,0.1683,-0.0647,0.0694,0.0728,0.0679,0.0721,-0.1087,-0.0647,-0.0539,0.1333,0.0839,0.0616,0.0206,0.0206,0.1156,-0.0548,-0.0583,0.1777,-0.1349,0.1289,0.0134,-0.0583,0.0744,0.0717,-0.1548,-0.0583,-0.0509,-0.0422,-0.0422,0.1369,0.0768,0.0727,0.1303,0.0721,0.0701,-0.0557,-0.0557,-0.0557,-0.0557,-0.0644,-0.0453,-0.0572,-0.0564,0.0794,0.2553,0.2156,0.0668,-0.3569,-0.0463,-0.0542,-0.0422,-0.0532,-0.059,-0.0653,-0.0497,-0.0422,0.0727,-0.0986,0.014,0.0721,-0.0647,0.0727,0.059,-0.0526,-0.0453,-0.0946,0.0701,-0.1406,-0.0613,0.1057,0.0668,0.1019,-0.0616,-0.0509,-0.0955,0.1404,0.0794,0.0648,0.0717,0.2634,0.0721,0.0668,0.0668,0.075,-0.0585,-0.0585,-0.0523,-0.0523,-0.0497,-0.0497,-0.2015,-0.0539,-0.0548,-0.0504,-0.0424,-0.059,0.0629,0.0629,0.0248,-0.0453,0.0659,0.0668,-0.0569,-0.0557,-0.0557,-0.1016,-0.1016,0.0727,0.0727,0.08,0.08,-0.1264,0.0744,0.1439,0.0789,0.0781,0.141,0.141,0.0616,0.0616,0.0676,0.0676,0.0701,0.0701,-0.1596,-0.0653,-0.0667,-0.0542,0.7681,0.0787,0.0629,0.0694,0.0789,0.0701,0.6511,0.0767,0.0767,-0.049,0.1731,-0.1446,-0.0694,0.0161,0.0659,-0.0484,-0.0946,-0.0526,-0.0506,-0.0585,-0.0585,-0.0566,-0.0566,-0.0532,-0.0532,-0.0694,-0.0694,-0.0694,-0.0694,0.0767,0.0767,0.0668,0.0668,0.1366,0.0701,0.0789,0.0616,0.0616,0.067,0.067,-0.066,-0.066,0.0102,-0.0548,0.0659,0.0714,0.0714,-0.0622,-0.0622,0.25,0.067,0.0648,0.1189,0.0616,-0.2902,-0.0463,-0.1456,-0.1016,-0.0566,-0.0502,-0.0916,-0.0537,-0.0463,0.0728,0.0728,-0.1744,-0.0453,-0.2344,-0.0531,-0.0572,-0.0647,-0.0622,-0.066,-0.0562,-0.0562,-0.0506,-0.0506,-0.2185,-0.0504,-0.0569,-0.1035,-0.0647,-0.0647,-0.0647,-0.0647,-0.0557,-0.0557,0.0629,0.0629,-0.052,-0.052,0.0629,0.0137,-0.052,0.067,0.0727,0.0727,-0.0552,-0.0552,0.0668,0.0668,-0.0531,-0.0531,0.118,0.0659,0.0629,-0.0298,0.0658,-0.164,-0.0613,-0.0572,-0.0572,-0.1383,-0.0484,-0.0569,-0.056,-0.1614,-0.0424,-0.0552,-0.0562,-0.0453,-0.0547,-0.0547,0.0646,0.0646,-0.0985,-0.0569,-0.0506,0.0659,0.0659,-0.059,-0.059,0.0735,0.0735,-0.1594,-0.0542,-0.0667,-0.065,-0.0564,-0.0564,0.3578,0.1341,0.0735,0.0727,0.0766,0.0648,0.057,0.057,0.2823,0.1194,0.0787,0.2193,-0.0694,-0.052,-0.052,-0.2206,-0.0554,-0.0562,-0.0572,-0.0506,-0.066,0.0659,0.0659,-0.056,-0.056,0.1153,0.059,0.0668,-0.0263,-0.0531,0.0744,-0.066,0.0768,0.0243,0.0728,-0.0463,-0.0424,-0.0424,-0.053,-0.053,-0.0908,-0.0908,-0.2747,-0.1349,0.0679,-0.0569,-0.0542,-0.065,-0.0539,-0.0562,-0.0562,0.0668,0.0668,0.059,0.059,0.0866,0.0735,0.0668,-0.0484,0.067,0.0622,-0.0502,-0.0497,-0.0694,-0.0422,-0.0422,-0.1452,-0.0999,-0.0521,0.0616,-0.2107,-0.0547,0.0789,0.0789,0.5861,0.0766,0.0659,0.0768,0.08,0.1309,-0.0506,0.0735,-0.0653,0.075,0.1239,-0.0652,0.057,-0.1091,-0.0523,0.1321,-0.0326,-0.0662,0.0622,-0.0538,0.0701,0.067,0.1218,0.0614,0.0648,0.0646,0.1747,0.067,0.0717,0.0744,0.0658,0.0728,0.0794,-0.0554,-0.0554,-0.0542,-0.0542,-0.279,-0.1543,-0.065,-0.0647,-0.1447,-0.1058,-0.0613,-0.104,-0.0463,-0.0347,0.0787,0.0766,0.1289,0.0839,0.0727,0.0622,0.0648,-0.332,0.1339,0.0767,-0.3555,0.0655,0.0768,-0.0502,-0.0502,0.0781,0.0781,-0.0542,-0.0542,-0.0537,-0.1491,-0.0652,-0.0557,-0.053,0.1187,0.067,0.0626,-0.053,-0.053,0.1777,0.0789,0.0694,0.059,0.0219,0.0781,-0.0542,0.0721,0.0756,0.0648,0.0767,-0.0532,0.0767,0.0767,0.4516,0.0675,0.3545,0.0622,-0.1081,-0.052,-0.0547,-0.0547,0.2783,0.0679,0.2482,0.0145,-0.0542,-0.0542,0.1881,0.1177,0.1016,-0.129,-0.0613,-0.0694,0.0281,-0.1822,-0.0422,-0.0523,0.208,0.0659,0.1206,0.059,-0.1485,-0.0538,-0.0532,-0.0662,-0.0538,-0.0538,-0.0583,-0.0453,-0.0506,0.0744,-0.0504,0.1239,0.0626,0.0727,-0.0569,-0.0569,0.0616,0.0616,-0.0622,-0.0622,0.0413,0.0768,0.0714,-0.0892,-0.052,-0.052,-0.0653,-0.0653,0.0248,-0.0497,0.0768,-0.0521,-0.0521,-0.2557,-0.0521,-0.0579,-0.1265,-0.0552,-0.0453,-0.0891,-0.0526,-0.0526,-0.0932,-0.0932,-0.0504,-0.0504,0.13,0.0701,0.0717,-0.0569,-0.0569,0.08,0.08,-0.1354,-0.0548,-0.0506,-0.0526,-0.0569,-0.0569,-0.0422,-0.0422,-0.1001,-0.052,-0.0572,0.1344,0.075,0.0717,-0.1036,-0.0579,-0.0552,-0.0542,-0.0542,-0.0554,-0.0554,-0.0579,-0.0579,-0.0765,-0.0949,0.0084,-0.0647,-0.0647,0.0794,0.0794,-0.0562,-0.0562,-0.1009,-0.0537,-0.0564,0.0717,0.0717,-0.0647,-0.0647,0.067,0.067,0.0648,0.0648,-0.1581,-0.0909,-0.0453,-0.0504,-0.1726,-0.0539,-0.0547,-0.052,-0.0521,-0.0652,-0.0652,-0.0912,-0.059,0.0735,-0.1163,-0.1635,0.0219,-0.056,-0.0929,-0.0955,-0.056,-0.056,-0.0945,-0.0547,-0.0484,-0.2659,0.067,-0.052,-0.0616,-0.2007,-0.0558,-0.053,-0.0557,-0.0463,0.1238,-0.0497,0.0616,-0.0422,-0.0532,0.067,-0.0585,-0.0548,-0.0548,-0.0583,-0.0583,0.0629,0.0629,-0.0547,-0.0547,-0.1367,-0.0506,-0.0998,-0.0484,-0.0484,-0.0891,0.075,0.0789,-0.0497,-0.0647,-0.0572,-0.0647,-0.0424,-0.0667,-0.0667,-0.0986,-0.0986,0.1147,0.0721,-0.0539,0.1196,-0.0526,0.0668,0.1244,0.0839,-0.0916,0.0629,0.0735,-0.0537,-0.0538,-0.0538,-0.0523,0.1232,0.0668,0.1716,0.019,0.0626,0.0668,-0.0554,-0.0554,-0.1584,-0.0547,-0.0548,0.0614,-0.0509,-0.0484,-0.0662,0.0347,0.0839,-0.0616,0.0714,-0.0548,-0.1191,0.0766,-0.0954,-0.0502,-0.0538,-0.1702,-0.0957,-0.0552,-0.0502,0.0847,0.0717,0.0248,-0.0531,-0.0531,0.179,0.0614,0.0675,0.0694,0.0694,0.0325,0.0721,-0.0585,0.0243,-0.0532,-0.0532,-0.0531,-0.0531,-0.0662,-0.0662,0.0668,0.0668,0.0626,0.0626,0.2831,0.1286,0.067,0.067,-0.0585,0.0629,-0.1295,-0.0564,-0.0424,-0.0523,-0.1155,-0.0613,-0.0647,-0.0662,-0.0662,-0.0579,-0.0579,-0.2613,-0.2613,-0.0028,-0.0585,-0.0523,-0.0585,0.0679,0.08,0.0694,0.0694,0.1999,0.127,0.0616,0.0115,0.0659,-0.0979,-0.0647,-0.0647,-0.0653,-0.0653,0.1175,-0.059,0.0659,-0.0667,0.0721,0.0646,0.0781,0.0787,-0.153,0.0616,0.0679,-0.0377,-0.0502,-0.0502,0.1626,0.057,0.0668,0.0659,-0.0973,-0.0973,0.0629,0.0629,-0.3012,0.0655,-0.052,-0.053,-0.0506,-0.0694,-0.1392,-0.052,-0.0537,-0.053,0.0787,0.0787,0.0655,0.0655,0.1357,0.1299,-0.0523,-0.0569,0.0768,-0.0572,0.0701,-0.0497,-0.0497,-0.1117,-0.0572,-0.0647,0.0141,-0.056,0.0714,-0.1735,-0.1031,-0.0929,-0.2975,-0.1777,-0.0912,-0.0622,-0.0504,0.5012,0.3075,0.0735,0.1231,0.0659,0.0668,0.0655,0.3662,0.0616,0.0655,0.067,0.127,0.0616,0.0659,0.1187,0.075,0.0735,0.0629,0.0668,-0.0647,0.118,-0.1274],"idf":[4.157,4.4447,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,3.7515,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.157,4.8501,4.4447,4.8501,4.8501,3.9339,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,3.5974,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.4447,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,1.6721,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.4447,4.4447,4.8501,4.8501,4.8501,3.9339,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.4447,4.4447,4.4447,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.157,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,2.7101,4.8501,4.4447,4.8501,3.7515,4.157,4.157,4.4447,4.8501,4.8501,3.1454,4.8501,4.8501,4.8501,3.7515,4.4447,4.8501,4.8501,3.5974,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.4639,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.1454,4.8501,4.4447,4.8501,3.5974,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.4447,4.8501,4.8501,4.8501,3.5974,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.157,4.4447,4.8501,3.9339,4.4447,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,2.8352,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.157,4.8501,4.4447,4.4447,4.8501,4.8501,4.8501,3.7515,4.157,4.8501,4.8501,4.8501,3.5974,4.157,4.157,4.8501,4.8501,4.157,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,3.2407,4.4447,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,3.9339,3.9339,4.8501,4.8501,4.8501,4.157,4.8501,4.4447,3.9339,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,2.8352,4.8501,2.9042,4.8501,4.8501,3.5974,4.8501,4.8501,3.9339,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,3.7515,4.4447,4.4447,4.8501,4.8501,3.7515,4.8501,4.4447,4.4447,4.8501,4.8501,4.157,4.8501,4.4447,3.9339,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.4447,4.8501,4.157,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,3.5974,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.4447,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.157,4.157,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.5974,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.5974,4.8501,4.8501,4.8501,4.8501,4.8501,3.4639,4.4447,4.8501,3.9339,3.9339,4.8501,4.8501,4.8501,4.8501,3.7515,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.5974,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.3461,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,2.7707,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.4447,4.157,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.4447,4.4447,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,3.5974,3.5974,4.4447,4.4447,1.9598,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,3.2407,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.5974,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,2.7707,4.8501,3.0584,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.5974,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,2.9042,4.8501,4.4447,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,2.9783,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.1454,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,3.3461,4.8501,4.8501,4.4447,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,4.8501,2.4988,4.8501,4.8501,4.8501,4.4447,4.8501,3.5974,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.4639,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,2.2475,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,3.9339,4.8501,4.4447,4.8501,4.8501,4.4447,4.4447,4.4447,4.8501,4.8501,4.8501,4.8501,3.3461,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,2.6529,4.8501,4.4447,4.4447,4.4447,4.8501,3.9339,4.8501,4.157,4.8501,4.4447,4.8501,4.8501,2.7707,4.8501,4.4447,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.4447,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,3.9339,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,3.4639,4.8501,4.4447,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,2.3652,4.157,4.8501,4.157,4.4447,4.8501,4.8501,4.4447,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,2.8352,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.4447,4.4447,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.4447,2.8352,4.8501,4.8501,4.157,4.157,4.4447,4.4447,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,3.4639,3.5974,4.8501,2.9783,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,2.3652,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.157,4.8501,3.1454,4.8501,3.2407,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.4447,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,2.3652,4.8501,4.8501,4.8501,4.8501,4.8501,2.5989,4.8501,4.8501,2.7101,4.157,2.9042,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.4447,4.8501,3.0584,4.8501,3.5974,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.157,4.8501,4.157,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,3.4639,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.1454,4.4447,4.8501,3.5974,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,3.1454,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.4639,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.4447,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,1.8056,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.4447,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,1.6313,4.157,4.8501,4.8501,4.157,4.4447,4.8501,4.4447,4.8501,4.157,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,3.2407,4.4447,4.8501,3.2407,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,3.0584,4.8501,3.3461,4.8501,4.4447,4.8501,4.8501,4.8501,3.4639,4.8501,3.9339,4.4447,4.8501,4.8501,3.5974,4.4447,3.9339,3.7515,4.8501,4.8501,4.4447,3.9339,4.8501,4.8501,3.9339,4.8501,4.4447,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,3.4639,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.4447,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.4447,4.8501,4.8501,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.4447,3.5974,4.4447,4.8501,4.4447,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,2.5989,4.8501,4.8501,4.8501,3.7515,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.4447,4.8501,4.8501,3.4639,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.4447,2.7707,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,3.7515,4.4447,4.8501,4.8501,4.8501,4.8501,3.5974,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.3461,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,3.9339,4.4447,4.8501,4.8501,4.157,4.8501,4.4447,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,3.9339,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.3461,4.4447,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.4639,3.4639,3.9339,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,3.7515,4.4447,4.8501,4.4447,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,2.7101,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.157,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.4447,4.4447,4.8501,4.8501,3.1454,4.8501,4.8501,4.8501,4.8501,4.8501,4.157,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,2.6529,2.9783,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,3.9339,4.4447,4.4447,3.3461,3.9339,4.4447,4.8501,4.8501,2.9783,3.4639,4.8501,4.4447,4.8501,4.8501,4.8501,2.6529,4.8501,4.8501,4.8501,4.4447,4.8501,4.8501,4.4447,4.8501,4.8501,4.8501,4.8501,4.8501,4.4447,3.7515]};
+var NR_COEF = {}, NR_IDF = {};
+(function(){
+  for (var i = 0; i < MODEL.terms.length; i++) { NR_COEF[MODEL.terms[i]] = MODEL.coef[i]; NR_IDF[MODEL.terms[i]] = MODEL.idf[i]; }
+})();
+function nrClean(text){
+  return String(text).toLowerCase().replace(/[^a-z0-9₹\s]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function nrRisk(text){
+  var cleaned = nrClean(text);
+  var toks = cleaned ? cleaned.split(' ') : [];
+  var counts = {}, i, term;
+  for (i = 0; i < toks.length; i++) counts[toks[i]] = (counts[toks[i]] || 0) + 1;
+  for (i = 0; i + 1 < toks.length; i++) { term = toks[i] + ' ' + toks[i + 1]; counts[term] = (counts[term] || 0) + 1; }
+  var vals = {}, normSq = 0;
+  for (term in counts) {
+    if (!Object.prototype.hasOwnProperty.call(NR_IDF, term)) continue;
+    var v = (1 + Math.log(counts[term])) * NR_IDF[term];
+    vals[term] = v; normSq += v * v;
+  }
+  var norm = normSq > 0 ? Math.sqrt(normSq) : 1;
+  var s = MODEL.intercept;
+  for (term in vals) s += (vals[term] / norm) * (NR_COEF[term] || 0);
+  return 1 / (1 + Math.exp(-s));
+}
+</script>
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length, cur = 0;
+  var prevBtn = document.getElementById('prevBtn'), nextBtn = document.getElementById('nextBtn');
+  var cTop = document.getElementById('counterTop'), cBot = document.getElementById('counterBottom');
+  var bar = document.getElementById('progressBar');
+  var dotsWrap = document.getElementById('dots');
+  var overview = document.getElementById('overview');
+
+  slides.forEach(function(s, i){
+    var d = document.createElement('button');
+    d.type = 'button'; d.className = 'dot'; d.textContent = (i+1);
+    d.setAttribute('aria-label', 'Go to slide ' + (i+1) + ': ' + s.getAttribute('data-title'));
+    d.addEventListener('click', function(){ go(i); });
+    dotsWrap.appendChild(d);
+
+    var card = document.createElement('button');
+    card.type = 'button'; card.className = 'ov-card';
+    card.innerHTML = '<span class="n">SLIDE ' + (i+1) + ' / ' + total + '</span><b></b><span></span>';
+    card.querySelector('b').textContent = s.getAttribute('data-title');
+    var h = s.querySelector('h3');
+    card.querySelectorAll('span')[1].textContent = h ? h.textContent.trim() : '';
+    card.addEventListener('click', function(){ go(i); overview.classList.remove('show'); document.getElementById('stage').scrollIntoView({behavior:'smooth', block:'start'}); });
+    overview.appendChild(card);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function go(i){
+    cur = Math.max(0, Math.min(total-1, i));
+    slides.forEach(function(s, j){ s.classList.toggle('active', j === cur); });
+    dots.forEach(function(d, j){ d.classList.toggle('on', j === cur); });
+    prevBtn.disabled = cur === 0; nextBtn.disabled = cur === total-1;
+    var label = 'Slide ' + (cur+1) + ' / ' + total;
+    cTop.textContent = label; cBot.textContent = (cur+1) + ' / ' + total;
+    bar.style.width = ((cur+1)/total*100) + '%';
+    try { history.replaceState(null, '', '#slide-' + (cur+1)); } catch(e){}
+  }
+  prevBtn.addEventListener('click', function(){ go(cur-1); });
+  nextBtn.addEventListener('click', function(){ go(cur+1); });
+  document.addEventListener('keydown', function(e){
+    if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) return;
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(cur+1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur-1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(total-1);
+  });
+  var tx = null;
+  var stage = document.getElementById('stage');
+  stage.addEventListener('touchstart', function(e){ tx = e.changedTouches[0].clientX; }, {passive:true});
+  stage.addEventListener('touchend', function(e){
+    if (tx === null) return;
+    var dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 55) go(cur + (dx < 0 ? 1 : -1));
+    tx = null;
+  }, {passive:true});
+
+  document.getElementById('overviewBtn').addEventListener('click', function(){
+    overview.classList.toggle('show');
+    if (overview.classList.contains('show')) overview.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  document.getElementById('presentBtn').addEventListener('click', function(){
+    var el = document.getElementById('stage');
+    go(cur);
+    if (el.requestFullscreen) { el.requestFullscreen().catch(function(){}); }
+    el.scrollIntoView({block:'start'});
+  });
+
+  var m = /#slide-(\d+)/.exec(location.hash || '');
+  go(m ? parseInt(m[1], 10) - 1 : 0);
+
+  /* ---- Slide 6 demo ---- */
+  var DEMOS = {
+    scam: {
+      text: 'Hello, I am HR Anjali from a leading MNC. Your profile is shortlisted for Data Entry work from home, salary 35000 per month. No interview needed. Pay Rs 1999 refundable security deposit on GPay to confirm your seat and get the offer letter today. Limited seats, hurry!',
+      html: 'Hello, I am HR Anjali from a leading MNC. Your profile is shortlisted for Data Entry work from home, salary 35000 per month. <mark>No interview needed.</mark> Pay <mark>Rs 1999 refundable security deposit</mark> on GPay to <mark>confirm your seat</mark> and get the offer letter today. <mark>Limited seats, hurry!</mark>',
+      flags: [
+        '“Refundable security deposit” — real employers never charge a fee to hire you.',
+        '“No interview needed” — an offer with no assessment at all.',
+        '“Limited seats, hurry!” — artificial urgency designed to stop you thinking.',
+        'Hiring over personal WhatsApp with no official channel.'
+      ],
+      saved: 'You just avoided losing ₹1,999'
+    },
+    genuine: {
+      text: 'Software Engineer (Fresher) — Bengaluru, Hybrid. B.Tech CSE 2025/2026 graduates. Skills: Python, SQL, REST APIs. CTC 5 LPA. Selection: online coding test, technical interview, HR round. Apply on our careers portal. No fee at any stage of hiring.',
+      html: 'Software Engineer (Fresher) — Bengaluru, Hybrid. B.Tech CSE 2025/2026 graduates. Skills: Python, SQL, REST APIs. CTC 5 LPA. Selection: online coding test, technical interview, HR round. Apply on our careers portal. No fee at any stage of hiring.',
+      flags: [
+        'Structured posting: role, location, skills and CTC all stated.',
+        'A real selection process — coding test and interview rounds.',
+        '“No fee at any stage of hiring” — the opposite of the scam pattern.'
+      ],
+      saved: ''
+    },
+    uncertain: {
+      text: 'We are a recruitment consultancy in Noida hiring freshers for back office roles in MNC clients. Salary 22000-28000. Walk in with resume and documents, Monday to Saturday 10am-5pm. No fee mentioned.',
+      html: 'We are a recruitment consultancy in Noida hiring freshers for back office roles in MNC clients. Salary 22000-28000. Walk in with resume and documents, Monday to Saturday 10am-5pm. No fee mentioned.',
+      flags: [
+        'Check 1 — check the offer on the company’s official careers page, or call the company’s published number.',
+        'Check 2 — never pay any fee before joining.',
+        'Check 3 — Google the company name + “scam”, and check the HR email domain matches the company website.'
+      ],
+      saved: ''
+    }
+  };
+  var msg = document.getElementById('demoMsg'), scoreEl = document.getElementById('demoScore'),
+      fill = document.getElementById('demoFill'), verdict = document.getElementById('demoVerdict'),
+      flagsEl = document.getElementById('demoFlags'), saved = document.getElementById('demoSaved'),
+      note = document.getElementById('demoNote');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.demo-tab'));
+  function runDemo(key){
+    var d = DEMOS[key]; if (!d) return;
+    /* Score live with the exact TF-IDF scorer (full-vocabulary model above). */
+    var risk = nrRisk(d.text);
+    var pct = Math.round(risk * 100);
+    var band = risk >= 0.65
+      ? { verdict: 'Likely scam', color: 'var(--red)', tabClass: 'on-scam' }
+      : risk >= 0.40
+        ? { verdict: 'Uncertain — verify these 3 things', color: 'var(--amber)', tabClass: 'on-unc' }
+        : { verdict: 'No scam signs found', color: 'var(--green)', tabClass: 'on-gen' };
+    tabs.forEach(function(t){ t.className = 'demo-tab' + (t.getAttribute('data-demo') === key ? ' ' + band.tabClass : ''); });
+    msg.innerHTML = d.html;
+    scoreEl.textContent = pct + '%'; scoreEl.style.color = band.color;
+    fill.style.width = pct + '%';
+    verdict.textContent = band.verdict; verdict.style.color = band.color;
+    note.classList.toggle('show', band.tabClass === 'on-gen');
+    flagsEl.innerHTML = '';
+    d.flags.forEach(function(f){ var li = document.createElement('li'); li.textContent = f; flagsEl.appendChild(li); });
+    if (d.saved) { saved.textContent = '🛡 ' + d.saved; saved.classList.add('show'); }
+    else { saved.classList.remove('show'); saved.textContent = ''; }
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ runDemo(t.getAttribute('data-demo')); }); });
+
+  /* ---- Copy script ---- */
+  var SCRIPT_TEXT = [
+    '0-5s: "Every day, thousands of Indian freshers lose Rs 5,000 to Rs 50,000 to security-deposit job scams. This is NaukriRakshak."',
+    '5-15s: [Click the scam sample] "I paste this urgent hiring WhatsApp message. The classifier flags it - high risk, in under a second, with no server."',
+    '15-25s: "It shows me exactly why: a fee demand, no interview, and urgent tone. And it tells me I just avoided losing Rs 1,999."',
+    '25-30s: [Click the genuine sample] "A real posting scores low. 24 out of 24 right on our held-out test set. We do not guess - we protect."'
+  ].join('\n');
+  var copyBtn = document.getElementById('copyScript');
+  copyBtn.addEventListener('click', function(){
+    function done(){ copyBtn.textContent = 'Copied ✓'; copyBtn.classList.add('done'); setTimeout(function(){ copyBtn.textContent = 'Copy the full script'; copyBtn.classList.remove('done'); }, 2200); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(SCRIPT_TEXT).then(done).catch(done); }
+    else {
+      var ta = document.createElement('textarea'); ta.value = SCRIPT_TEXT; document.body.appendChild(ta);
+      ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); done();
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "scam_demo": {
+    "text": "Hello, I am HR Anjali from a leading MNC. Your profile is shortlisted for Data Entry work from home, salary 35000 per month. No interview needed. Pay Rs 1999 refundable security deposit on GPay to confirm your seat and get the offer letter today. Limited seats, hurry!",
+    "true_probability": 0.6909
+  },
+  "genuine_demo": {
+    "text": "Software Engineer (Fresher) \u2014 Bengaluru, Hybrid. B.Tech CSE 2025/2026 graduates. Skills: Python, SQL, REST APIs. CTC 5 LPA. Selection: online coding test, technical interview, HR round. Apply on our careers portal. No fee at any stage of hiring.",
+    "true_probability": 0.287
+  },
+  "uncertain_demo": {
+    "text": "We are a recruitment consultancy in Noida hiring freshers for back office roles in MNC clients. Salary 22000-28000. Walk in with resume and documents, Monday to Saturday 10am-5pm. No fee mentioned.",
+    "true_probability": 0.4507
+  },
+  "genuine_small_whatsapp": {
+    "text": "We are a small digital marketing agency in Indore hiring a content writer. Share your resume on WhatsApp at 98XXXXXXXX. Salary 18000, work from office.",
+    "true_probability": 0.4469
+  },
+  "genuine_no_fee": {
+    "text": "Junior Accountant, Mumbai. B.Com, Tally. Salary Rs 25000. No fee is charged at any stage of recruitment. Apply via company website.",
+    "true_probability": 0.3487
+  },
+  "subtle_scam": {
+    "text": "Congratulations, you have been selected for a role in a reputed MNC. Our HR will call you tomorrow to discuss joining formalities and documentation.",
+    "true_probability": 0.6632
+  },
+  "hinglish_scam": {
+    "text": "ghar se kaam, 30000 mahina, koi experience nahi chahiye, WhatsApp par sampark karein, 999 registration fee jama karein",
+    "true_probability": 0.618
+  },
+  "genuine_linkedin": {
+    "text": "We are hiring! Software Development Engineer I, Bengaluru. 0-2 years experience, strong in DSA, Java or Python. Apply here: careers page link in comments. Referrals welcome.",
+    "true_probability": 0.3792
+  }
+}
